@@ -17,7 +17,9 @@ export class UsersList {
 
   settings = {
     mode:'external',
-    actions:{position: 'right'},
+    actions:{
+      //position: 'right'
+    },
     add: {
       addButtonContent: '<i class="ion-ios-plus-outline"></i>',
       createButtonContent: '<i class="ion-checkmark"></i>',
@@ -37,18 +39,39 @@ export class UsersList {
         title: 'Name',
         type: 'string'
       },
-      age: {
-        title: 'Age',
-        type: 'string'
-      },
-      sex: {
-        title: 'Sex',
-        type: 'string'
-      },
       email: {
-        title: 'email',
+        title: 'Email',
         type: 'string'
-      }
+      },
+      mobile_no: {
+        title: 'Mobile No',
+        type: 'string'
+      },
+      membership_name: {
+        title: 'Membership',
+        type: 'string'
+      },
+      end_date: {
+        title: 'Expired On',
+        type: 'string'
+      },
+      Actions: //or something
+      {
+        title:'Actions',
+        type:'html',
+        valuePrepareFunction:(cell,row)=>{
+          return `<a class="ng2-smart-action" href="Your api key or something/${row.id}"> 
+                    <i class="ion-eye"></i>
+                   </a>
+                   <a class="ng2-smart-action" href="/#/pages/users/inputs/${row.id}"> 
+                    <i class="ion-edit"></i>
+                   </a>
+                   <a class="ng2-smart-action" href="Your api key or something/${row.id}"> 
+                    <i class="ion-trash-a"></i>
+                   </a>`
+        },
+        filter:false       
+      },
     }
   };
 

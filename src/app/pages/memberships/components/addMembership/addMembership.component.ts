@@ -4,10 +4,10 @@ import { ActivatedRoute, Params, Router, CanActivate, ActivatedRouteSnapshot } f
 import {MembershipsService} from "../../../../shared/services/memberships.service";
 
 @Component({
-  selector: 'standard-inputs',
-  templateUrl: './standardInputs.html',
+  selector: 'add-memberships',
+  templateUrl: './addMembership.html',
 })
-export class StandardInputs {
+export class AddMembership {
 
 	data:any;
 	public name:string;

@@ -9,11 +9,11 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { routing } from './memberships.routing';
 import { Memberships } from './memberships.component';
-import { SmartTables } from './components/smartTables/smartTables.component';
-import { SmartTablesService } from './components/smartTables/smartTables.service';
+import { List } from './components/list/list.component';
+//import { SmartTablesService } from './components/smartTables/smartTables.service';
 import {MembershipsService} from "../../shared/services/memberships.service";
 
-import { StandardInputs } from './components/standardInputs';
+import { AddMembership } from './components/addMembership';
 
 @NgModule({
   imports: [
@@ -29,11 +29,10 @@ import { StandardInputs } from './components/standardInputs';
   ],
   declarations: [
     Memberships,
-    SmartTables,
-    StandardInputs
+    List,
+    AddMembership
   ],
   providers: [
-    SmartTablesService,
     MembershipsService
   ]
 })

@@ -48,36 +48,6 @@ export const PAGES_MENU = [
         path: 'memberships',
         data: {
           menu: {
-            title: 'Membership',
-            icon: 'ion-ios-list',
-            selected: false,
-            expanded: false,
-            order: 100,
-          }
-        },
-        children: [
-          {
-            path: 'smarttables',
-            data: {
-              menu: {
-                title: 'List',
-              }
-            }
-          },
-          {
-            path: 'standard-inputs',
-            data: {
-              menu: {
-                title: 'Add',
-              }
-            }
-          }
-        ]
-      },
-      {
-        path: 'memberships',
-        data: {
-          menu: {
             title: 'Payments',
             icon: 'ion-cash',
             selected: false,
@@ -134,6 +104,41 @@ export const PAGES_MENU = [
           }
         ]
       },
+      {
+        path: 'memberships',
+        data: {
+          menu: {
+            title: 'Membership',
+            icon: 'ion-ios-list',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'list',
+            data: {
+              menu: {
+                title: 'List',
+              }
+            }
+          },
+          {
+            path: 'add',
+            data: {
+              menu: {
+                title: 'Add',
+              }
+            }
+          }
+        ]
+      },
+
+
+
+
+      
       {
         path: 'editors',
         data: {

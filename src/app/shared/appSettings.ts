@@ -1,3 +1,3 @@
 export class AppSettings {
-   public static API_ENDPOINT='http://gym.api/';
+   public static API_ENDPOINT='http://mg.api/';
 }
