@@ -1,0 +1,68 @@
+    
+
+  <div class="form-group">
+    <label for="input01">Name</label>
+    <input type="text" class="form-control" id="input01" placeholder="Name" [(ngModel)]="name"  >
+  </div>
+  <div class="form-group">
+    <label for="input02">Age</label>
+    <input type="text" class="form-control" id="input02" placeholder="Age" [(ngModel)]="age">
+  </div>
+  <div class="form-group">
+    <label for="input03">Sex</label>
+    <div class="input-demo radio-demo row">
+      <div class="col-md-4">
+        <label class="radio-inline custom-radio nowrap">
+          <input type="radio" name="sex" id="inlineRadio2" value="M" [checked]="sex === 'M'" (change)="onSelectionChange('M')">
+          <span>Male</span>
+        </label>
+      </div>
+      <div class="col-md-4">
+        <label class="radio-inline custom-radio nowrap">
+          <input type="radio" name="sex" id="inlineRadio3" value="F" [checked]="sex === 'F'" (change)="onSelectionChange('F')">
+          <span>Female</span>
+        </label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="input04">DOB</label>
+    <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="dob"  ngbDatepicker #d1="ngbDatepicker" >
+        <div class="input-group-addon" (click)="d1.toggle()" >
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+        </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="input05">Mobile No</label>
+    <input type="text" class="form-control" id="input05" placeholder="Mobile No" [(ngModel)]="mobile_no">
+  </div>
+
+  <div class="form-group">
+    <label for="input06">Resident No</label>
+    <input type="text" class="form-control" id="input06" placeholder="Resident No" [(ngModel)]="resident_no">
+  </div>
+
+  <div class="form-group">
+    <label for="textarea01">Address</label>
+    <textarea placeholder="Address" class="form-control" id="textarea01"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="input07">Email ID</label>
+    <input type="text" class="form-control" id="input07" placeholder="Email ID" [(ngModel)]="email">
+  </div>
+
+  <div class="form-group">
+    <label for="input08">Facebook ID</label>
+    <input type="text" class="form-control" id="input08" placeholder="Facebook ID" [(ngModel)]="facebook">
+  </div>
+
+  <div class="form-group">
+    <label for="input09">Reffered By</label>
+    <input type="text" class="form-control" id="input09" placeholder="Reffered By" [(ngModel)]="refrered_by">
+  </div>
+
+
