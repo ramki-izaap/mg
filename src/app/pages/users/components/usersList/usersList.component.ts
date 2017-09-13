@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 
@@ -6,34 +6,38 @@ import {MembershipsService} from "../../../../shared/services/memberships.servic
 import {UsersService} from "../../../../shared/services/users.service";
 import { LocalDataSource } from 'ng2-smart-table';
 
+import {ButtonViewComponent} from "./buttonView.component"; 
+
 @Component({
   selector: 'users-list',
   templateUrl: './usersList.html',
   styleUrls: ['./usersList.scss']
+  
 })
-export class UsersList {
+export class UsersList implements OnInit{
 
   query: string = '';
 
   settings = {
-    mode:'external',
-    actions:{
-      //position: 'right'
-    },
-    add: {
-      addButtonContent: '<i class="ion-ios-plus-outline"></i>',
-      createButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="ion-edit"></i>',
-      saveButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="ion-trash-a"></i>',
-      confirmDelete: true
-    },
+    actions:false,
+    // //mode:'external',
+    // actions:{
+    //   //position: 'right'
+    // },
+    // add: {
+    //   addButtonContent: '<i class="ion-ios-plus-outline"></i>',
+    //   createButtonContent: '<i class="ion-checkmark"></i>',
+    //   cancelButtonContent: '<i class="ion-close"></i>',
+    // },
+    // edit: {
+    //   editButtonContent: '<i class="ion-edit"></i>',
+    //   saveButtonContent: '<i class="ion-checkmark"></i>',
+    //   cancelButtonContent: '<i class="ion-close"></i>',
+    // },
+    // delete: {
+    //   deleteButtonContent: '<i class="ion-trash-a"></i>',
+    //   confirmDelete: true
+    // },
     columns: {
       name: {
         title: 'Name',
@@ -55,23 +59,25 @@ export class UsersList {
         title: 'Expired On',
         type: 'string'
       },
-      Actions: //or something
-      {
-        title:'Actions',
-        type:'html',
-        valuePrepareFunction:(cell,row)=>{
-          return `<a class="ng2-smart-action" href="Your api key or something/${row.id}"> 
-                    <i class="ion-eye"></i>
-                   </a>
-                   <a class="ng2-smart-action" href="/#/pages/users/inputs/${row.id}"> 
-                    <i class="ion-edit"></i>
-                   </a>
-                   <a class="ng2-smart-action" href="Your api key or something/${row.id}"> 
-                    <i class="ion-trash-a"></i>
-                   </a>`
-        },
-        filter:false       
-      },
+      id: {
+        title: 'Actions',
+        type: 'custom',
+        renderComponent: ButtonViewComponent,
+        onComponentInitFunction(instance) {
+          
+          instance.view.subscribe(row => {
+            alert('view!')
+          });
+
+          instance.edit.subscribe(row => {
+            alert('edit!')
+          });
+
+          instance.delete.subscribe(row => {
+            alert('delete!')
+          });
+        }
+      }
     }
   };
 
@@ -83,11 +89,16 @@ export class UsersList {
     //   this.source.load(data);
     // });
 
-    this.uservice.list().map(res => res.json()).subscribe(res =>{
-        console.log(res);
-        this.source.load(res);
-    });
+    
 
+  }
+
+  ngOnInit() 
+  {
+      this.uservice.list().map(res => res.json()).subscribe(res =>{
+          console.log(res);
+          this.source.load(res);
+      });
   }
 
   onDeleteConfirm(event): void {

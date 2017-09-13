@@ -14,6 +14,8 @@ import { Inputs } from './components/inputs';
 import { UsersList } from './components/usersList';
 import { Layouts } from './components/layouts';
 
+import { ButtonViewComponent } from './components/usersList/buttonView.component';
+
 import { StandardInputs } from './components/inputs/components/standardInputs';
 import { ValidationInputs } from './components/inputs/components/validationInputs';
 import { CheckboxInputs } from './components/inputs/components/checkboxInputs';
@@ -44,6 +46,7 @@ import {UsersService} from "../../shared/services/users.service";
     Inputs,
     UsersList,
     Users,
+    ButtonViewComponent,
     StandardInputs,
     ValidationInputs,
     CheckboxInputs,
@@ -56,7 +59,8 @@ import {UsersService} from "../../shared/services/users.service";
   providers: [
     MembershipsService,
     UsersService
-  ]
+  ],
+  entryComponents: [ButtonViewComponent]
 })
 export class UsersModule {
 }
