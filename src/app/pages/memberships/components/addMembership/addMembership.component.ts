@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute, Params, Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 
 import {MembershipsService} from "../../../../shared/services/memberships.service";
@@ -10,14 +11,31 @@ import {MembershipsService} from "../../../../shared/services/memberships.servic
 export class AddMembership {
 
 	data:any;
-	public name:string;
-	public description:string;
-	public duration:string;
-	public amount:string;
+	public form:FormGroup;
+
+	public name:AbstractControl;
+	public description:AbstractControl;
+	public duration:AbstractControl;
+	public amount:AbstractControl;
 	public id:any;
 
-	constructor(protected mservice: MembershipsService, private activatedRoute: ActivatedRoute, private router: Router) {
-		
+	constructor(	
+			protected mservice: MembershipsService, 
+			private activatedRoute: ActivatedRoute, 
+			private router: Router,
+			public fb : FormBuilder) 
+	{
+		this.form = fb.group({
+				      'name': ['', Validators.compose([Validators.required])],
+				      'description': ['', Validators.compose([Validators.required])],
+				      'duration': ['', Validators.compose([Validators.required])],
+				      'amount': ['', Validators.compose([Validators.required])]
+				    });
+
+		this.name = this.form.controls['name'];
+		this.description = this.form.controls['description'];
+		this.duration = this.form.controls['duration'];
+		this.amount = this.form.controls['amount'];
 	}
 
 	ngOnInit() {
@@ -29,10 +47,23 @@ export class AddMembership {
 			        console.log(res);
 
 			        this.id = res.id;
-			        this.name = res.name;
-			        this.description = res.description;
-			        this.duration = res.duration;
-			        this.amount = res.amount;
+			        // this.name = res.name;
+			        // this.description = res.description;
+			        // this.duration = res.duration;
+			        // this.amount = res.amount;
+
+			        this.form = this.fb.group({
+				      'name': [res.name, Validators.compose([Validators.required])],
+				      'description': [res.description, Validators.compose([Validators.required])],
+				      'duration': [res.duration, Validators.compose([Validators.required])],
+				      'amount': [res.amount, Validators.compose([Validators.required])]
+				    });
+
+				    this.name = this.form.controls['name'];
+					this.description = this.form.controls['description'];
+					this.duration = this.form.controls['duration'];
+					this.amount = this.form.controls['amount'];
+					
 			        //this.router.navigate(['/pages/memberships/smarttables'], { queryParams: {}});
 			    });
         	}
@@ -49,27 +80,20 @@ export class AddMembership {
 		console.log(str+'::::HHHHHHHHHHHHHHHHHHHHH');
 	}
 
-	submitData()
+	onSubmit( values:any )
 	{
-		console.log(this);
-
-		let fd = new FormData();
-
-		fd.append( 'name', this.name );
-		fd.append( 'description', this.description );
-		fd.append( 'duration', this.duration );
-		fd.append( 'amount', this.amount );
+		console.log(values);
 
 		if( this.id )
 		{
-			fd.append( 'id', this.id );
+			values.id = this.id;
 		}
 
-		this.mservice.add(fd).map(res => res.json()).subscribe(res =>{
+		this.mservice.add(values).map(res => res.json()).subscribe(res =>{
 	        console.log(res);
-	        this.router.navigate(['/pages/memberships/smarttables'], { queryParams: {}});
+	        this.router.navigate(['/pages/memberships/list'], { queryParams: {}});
 	    });
-
-		//this.router.navigate(['/pages/memberships/smarttables'], { queryParams: {}});
 	}
+
+	
 }
