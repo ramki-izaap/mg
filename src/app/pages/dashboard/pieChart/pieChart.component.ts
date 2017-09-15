@@ -3,6 +3,7 @@ import {Component} from '@angular/core';
 import {PieChartService} from './pieChart.service';
 
 import 'easy-pie-chart/dist/jquery.easypiechart.js';
+import {BaThemeConfigProvider, colorHelper} from '../../../theme';
 
 @Component({
   selector: 'pie-chart',
@@ -13,10 +14,17 @@ import 'easy-pie-chart/dist/jquery.easypiechart.js';
 export class PieChart {
 
   public charts: Array<Object>;
+  public pieColor:string;
   private _init = false;
 
-  constructor(private _pieChartService: PieChartService) {
-    this.charts = this._pieChartService.getData();
+  constructor(private _pieChartService: PieChartService,private _baConfig:BaThemeConfigProvider) {
+
+    this.pieColor = this._baConfig.get().colors.custom.dashboardPieChart;
+    
+    this._pieChartService.getData().map(res => res.json()).subscribe(res =>{
+        console.log(res);
+        this.charts=res;
+    });
   }
 
   ngAfterViewInit() {

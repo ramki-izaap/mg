@@ -1,18 +1,27 @@
 import {Injectable} from '@angular/core';
 import {BaThemeConfigProvider, colorHelper} from '../../../theme';
+import {AppSettings} from '../../../shared/appSettings';
+import {Http, Headers, Response, RequestOptions} from "@angular/http";
+import {Observable} from "rxjs";
 
 @Injectable()
 export class PieChartService {
 
-  constructor(private _baConfig:BaThemeConfigProvider) {
+  constructor(private http:Http) {
   }
 
-  getData() {
-    let pieColor = this._baConfig.get().colors.custom.dashboardPieChart;
+  getData():Observable<Response>{
+
+    let headers = new Headers();
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.get( AppSettings.API_ENDPOINT+'dashboard/piechart', options );
+
+    /*
     return [
       {
         color: pieColor,
-        description: 'dashboard.new_visits',
+        description: 'August Income',
         stats: '57,820',
         icon: 'person',
       }, {
@@ -32,5 +41,6 @@ export class PieChartService {
         icon: 'refresh',
       }
     ];
+    */
   }
 }
