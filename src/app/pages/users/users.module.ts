@@ -1,6 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
 import { FormsModule as AngularFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppTranslationModule } from '../../app.translation.module';
 import { NgaModule } from '../../theme/nga.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -34,6 +35,8 @@ import {UsersService} from "../../shared/services/users.service";
   imports: [
     CommonModule,
     AngularFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppTranslationModule,
     NgaModule,
     Ng2SmartTableModule,

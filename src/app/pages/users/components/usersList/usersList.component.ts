@@ -18,7 +18,17 @@ export class UsersList implements OnInit{
 
   query: string = '';
 
-  settings = {
+  settings:any = {};
+
+  source: LocalDataSource = new LocalDataSource();
+
+  constructor(protected mservice: MembershipsService, protected uservice: UsersService, private router: Router) {
+    
+    // this.service.getData().then((data) => {
+    //   this.source.load(data);
+    // });
+
+    this.settings = {
     actions:false,
     // //mode:'external',
     // actions:{
@@ -70,7 +80,7 @@ export class UsersList implements OnInit{
           });
 
           instance.edit.subscribe(row => {
-            alert('edit!')
+            
           });
 
           instance.delete.subscribe(row => {
@@ -80,16 +90,6 @@ export class UsersList implements OnInit{
       }
     }
   };
-
-  source: LocalDataSource = new LocalDataSource();
-
-  constructor(protected mservice: MembershipsService, protected uservice: UsersService, private router: Router) {
-    
-    // this.service.getData().then((data) => {
-    //   this.source.load(data);
-    // });
-
-    
 
   }
 

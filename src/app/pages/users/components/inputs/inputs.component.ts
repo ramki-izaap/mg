@@ -1,4 +1,5 @@
 import {Component,ViewChild } from '@angular/core';
+import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/forms';
 import { ActivatedRoute, Params, Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 
 
@@ -15,56 +16,105 @@ import {UsersService} from "../../../../shared/services/users.service";
 })
 export class Inputs {
 
-	public name:string;
-	public age:string;
-	public email:string;
-	public facebook:string;
-	public sex:string = 'M';
-	public dob:any;
-	public mobile_no:string;
-	public resident_no:string;
-	public address:string;
-	public referred_by:string;
-	public rule:any;
+	public form:FormGroup;
+	public rules:any= {};
 
-	public contact_name:string;
-	public contact_relationship:string;
-	public contact_mobile_no:string;
-	public contact_resident_no:string;
+	public id:number;
 
-	public membership_no:string;
-	public start_date:any;
-	public end_date:any;
-	public reason:string;
-
-	public memberships:any;
-	public selectedMembership:any;
-
+	//Personal details
+	public name:AbstractControl;
+	public age:AbstractControl;
+	public email:AbstractControl;
+	public facebook:AbstractControl;
+	public sex:AbstractControl;
+	public dob:AbstractControl;
+	public mobile_no:AbstractControl;
+	public resident_no:AbstractControl;
+	public address:AbstractControl;
+	public referred_by:AbstractControl;
 	
-	public dob_config:any = {};
+	//Emergency contact details
+	public contact_name:AbstractControl;
+	public contact_relationship:AbstractControl;
+	public contact_mobile_no:AbstractControl;
+	public contact_resident_no:AbstractControl;
+
+	//Office Info
+	public membership_type:AbstractControl;
+	public membership_no:AbstractControl;
+	public start_date:AbstractControl;
+	public end_date:AbstractControl;
+	public reason:AbstractControl;
+
+	public memberships:any = [];	
+	public dob_config:any = {}; //to set max and min date for DOB field
 
   	constructor(	
   			protected mservice: MembershipsService, 
   			protected uservice: UsersService, 
   			private activatedRoute: ActivatedRoute, 
-  			private router: Router) 
+  			private router: Router,
+  			public fb : FormBuilder) 
   	{
-  		this.memberships = [];
-  		this.membership_no = this.getUniqueID();
+  		this.rules = {
+				      'name': ['', Validators.compose([Validators.required])],
+				      'age': ['', Validators.compose([Validators.required])],
+				      'sex': ['M', Validators.compose([])],
+				      'email': ['', Validators.compose([Validators.required, Validators.email])],
+				      'facebook': ['', Validators.compose([])],
+				      'dob': ['', Validators.compose([])],
+				      'mobile_no': ['', Validators.compose([Validators.required])],
+				      'resident_no': ['', Validators.compose([])],
+				      'address': ['', Validators.compose([])],
+				      'referred_by': ['', Validators.compose([])],
+				      
+
+				      'contact_name': ['', Validators.compose([Validators.required])],
+				      'contact_relationship': ['', Validators.compose([])],
+				      'contact_mobile_no': ['', Validators.compose([Validators.required])],
+				      'contact_resident_no': ['', Validators.compose([])],
+
+				      'membership_type': ['', Validators.compose([])],
+				      'membership_no': [this.getUniqueID(), Validators.compose([])],
+				      'start_date': ['', Validators.compose([])],
+				      'end_date': ['', Validators.compose([])],
+				      'reason': ['', Validators.compose([])]
+				    };
+
+		this.form = this.fb.group( this.rules );
+
+  		this.updateValues();
   		
 	}
 
-	ngOnInit() {
+	updateValues( )
+	{
+		let elms = Object.keys(this.rules);
 
-		
+		for( let i in elms )
+		{
+			this[elms[i]] = this.form.controls[elms[i]];
+		}
+	}
+
+	ngOnInit() 
+	{		
 		this.dob_config.minDate = {year:1917, month:1, day: 1};
-		this.dob_config.maxDate = this.getDateObj( new Date() );
+		this.dob_config.maxDate = this.strToDateObj( new Date() );
 
 		this.mservice.list().map(res => res.json()).subscribe(res =>{
+	        
 	        this.memberships = res;
-	        this.selectedMembership = res[0];
-	        console.log(this.selectedMembership);
-	        this.setStartAndEndDate( parseInt(this.selectedMembership.duration) );
+	        
+	        if( this.memberships.length )	   
+	        {
+	        	this.form.controls['membership_type'].setValue(this.memberships[0]);
+
+	        	let dts = this.getDatesByInterval( parseInt(this.memberships[0].duration) );
+	        	this.form.controls['start_date'].setValue( this.strToDateObj(dts.start_date) );
+				this.form.controls['end_date'].setValue( this.strToDateObj(dts.end_date) );
+	        }     
+	        
 	    });
 
 	    this.activatedRoute.params.subscribe((params: Params) => {
@@ -74,109 +124,137 @@ export class Inputs {
         		this.uservice.get(params['id']).map(res => res.json()).subscribe(res =>{
 			        console.log(res);
 
-			        this.name = res.name;
-			        this.email = res.email;
-			        this.facebook = res.facebook;
-			        this.age = res.age;
-			        this.sex = res.sex;
-			        this.dob = this.getDateObj(res.dob),//{year:2017, month:9, day: 25},//new Date(res.dob);
-			        this.address = res.address;
-			        this.mobile_no = res.mobile_no;
-			        this.resident_no = res.resident_no;
-			        this.referred_by = res.referred_by;
+			        this.id = params['id'];
 
-			        
-			        //this.router.navigate(['/pages/memberships/smarttables'], { queryParams: {}});
+			        let elms = Object.keys(this.rules);
+
+					for( let i in elms )
+					{
+						//this[elms[i]] = this.form.controls[elms[i]];
+						switch (elms[i]) 
+						{
+							case "dob":
+							case "start_date":
+							case "end_date":
+								let dt = res[ elms[i] ];
+								this.form.controls[ elms[i] ].setValue( this.strToDateObj(dt) );
+								break;
+
+							case "membership_type":
+
+								console.log(res['membership_id'], this.memberships)
+								let sel_ms = {};
+								for( let j=0; j<this.memberships.length; j++ )
+								{
+									if( this.memberships[j].id == res['membership_id'] )
+									{
+										sel_ms = this.memberships[j];
+										break;
+									}
+								}
+								this.form.controls[ elms[i] ].setValue(sel_ms);
+								break;
+
+							default:
+								this.form.controls[ elms[i] ].setValue(res[ elms[i] ]);
+								break;
+						}
+						
+					}
+
+					this.updateValues();
 			    });
         	}
       	});
 
 	}
 
+	updateAge( e )
+	{
+		let dt = this.dateObjToStr( e );
+		let age = this.calculateAge( new Date(dt) );
 
-	ngAfterViewInit() {
-	    // child is set
-	   //this.si.doValidation('MMMMMMMMMMM');
+		this.form.controls['age'].setValue(age);
 	}
+
 
 	submitData()
 	{
-		console.log(this);
-		// console.log(this.ci);
-		// console.log(this.vi);
+		console.log(this.form.value);
 
-		//prepare formdata
-		let body = new FormData();
+		if( this.form.invalid ) return;
 
-		body.append('name', this.name);
-		body.append('age', this.age);
-		body.append('sex', this.sex);
-		body.append('dob', this.convertDates(this.dob));
-		body.append('mobile_no', this.mobile_no);
-		body.append('resident_no', this.resident_no);
-		body.append('address', this.address);
-		body.append('email', this.email);
-		body.append('facebook', this.facebook);
-		body.append('referred_by', this.referred_by);
+		let data 			= Object.assign({}, this.form.value);
 
-		body.append('contact_name', this.contact_name);
-		body.append('contact_relationship', this.contact_relationship);
-		body.append('contact_mobile_no', this.contact_mobile_no);
-		body.append('contact_resident_no', this.contact_resident_no);
+		data.dob 			= this.dateObjToStr(data.dob);
+		data.start_date 	= this.dateObjToStr(data.start_date);
+		data.end_date 		= this.dateObjToStr(data.end_date);
+		data.membership_id 	= data.membership_type.id;
+		data.amount 		= '1000';
 
-		body.append('membership_id', this.selectedMembership.id);
-		body.append('membership_no', this.membership_no);
-		body.append('start_date', this.convertDates(this.start_date));
-		body.append('end_date', this.convertDates(this.end_date));
+		if( this.id )
+		{
+			data.id = this.id;
+		}
+		
+		console.log('data', data);		
 
-		this.uservice.add( body ).map(res => res.json()).subscribe(res =>{
+		this.uservice.add( data ).map(res => res.json()).subscribe(res =>{
 	        console.log(res);
+	        let msg = 'User added successfully!.';
+	        if( this.id )
+	        {
+	        	msg = 'Record updated successfully!.';
+	        }
+
+	        alert(msg);
+
+	        this.router.navigate(['/pages/users/users-list'], { queryParams: {}});
 	    });
 
-	}
-
-	onSelectionChange( sel:string )
-	{
-		this.sex = sel;
 	}
 
 	getUniqueID()
 	{
 		let str = Math.random().toString(36).substring(2);
-
 		if( typeof str == 'string' ) str = str.toUpperCase();
-
 		return str;
 	}
 
-	convertDates( obj )
+	dateObjToStr( obj )
 	{
 		let str = '';
 
 		obj.month = (obj.month<10) ? ('0'+ obj.month) : obj.month;
-
 		obj.day = (obj.day<10) ? ('0'+ obj.day) : obj.day;
-
 		str = obj.year +'-'+ obj.month +'-'+ obj.day;
 
 		return str;
 	}
 
-	getDateObj( dt_str:any )
+	strToDateObj( dt_str:any )
 	{
 		let dt = new Date(dt_str);
-
 		return {year: dt.getFullYear(), month: dt.getMonth() + 1, day: dt.getDate()};
 	}
 
-	setStartAndEndDate( interval:number )
+	getDatesByInterval( interval:number )
 	{
 		let start_date = new Date(),
 			end_date = new Date();
 
 		end_date.setDate(end_date.getDate() + interval);
 
-		this.start_date = this.getDateObj(start_date);
-		this.end_date = this.getDateObj(end_date);
+		return {start_date:start_date, end_date:end_date};
+
+		/*this.form.controls['start_date'].setValue( this.strToDateObj(start_date) );
+		this.form.controls['end_date'].setValue( this.strToDateObj(end_date) );*/
+	}
+
+	calculateAge( birthday ) 
+	{ 
+	    var ageDifMs = Date.now() - birthday.getTime();
+	    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+	    return Math.abs(ageDate.getUTCFullYear() - 1970);
 	}
 }
