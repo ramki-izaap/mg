@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
-import { SmartTablesService } from './smartTables.service';
+//import { SmartTablesService } from './smartTables.service';
 import {MembershipsService} from "../../../../shared/services/memberships.service";
 import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
-  selector: 'smart-tables',
-  templateUrl: './smartTables.html',
-  styleUrls: ['./smartTables.scss']
+  selector: 'list-memberships',
+  templateUrl: './list.html',
+  styleUrls: ['./list.scss']
 })
-export class SmartTables {
+export class List {
 
   query: string = '';
 
@@ -53,24 +53,30 @@ export class SmartTables {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(protected mservice: MembershipsService, private router: Router) {
+  constructor(protected mservice: MembershipsService, private router: Router) 
+  {
     
-    // this.service.getData().then((data) => {
-    //   this.source.load(data);
-    // });
 
-    this.mservice.list().map(res => res.json()).subscribe(res =>{
-        console.log(res);
-        this.source.load(res);
-    });
+  }
 
+  loadData()
+  {
+      this.mservice.list().map(res => res.json()).subscribe(res =>{
+          console.log(res);
+          this.source.load(res);
+      });
+  }
+
+  ngOnInit() 
+  {
+      this.loadData();
   }
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) 
     {
       this.mservice.delete(event.data.id).map(res => res.json()).subscribe(res =>{
-          this.router.navigate(['/pages/memberships/smarttables'], { queryParams: {}});
+          this.loadData();//this.router.navigate(['/pages/memberships/smarttables'], { queryParams: {}});
       });
     } else {
       //event.confirm.reject();
@@ -79,6 +85,6 @@ export class SmartTables {
 
   onEdit(event): void
   {
-      this.router.navigate(['/pages/memberships/standard-inputs', event.data.id], { queryParams: {}});
+      this.router.navigate(['/pages/memberships/add', event.data.id], { queryParams: {}});
   }
 }

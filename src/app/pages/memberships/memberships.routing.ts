@@ -1,8 +1,8 @@
 import { Routes, RouterModule } from '@angular/router';
 
 import { Memberships } from './memberships.component';
-import { SmartTables } from './components/smartTables/smartTables.component';
-import { StandardInputs } from './components/standardInputs/standardInputs.component';
+import { List } from './components/list/list.component';
+import { AddMembership } from './components/addMembership/addMembership.component';
 
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
@@ -10,9 +10,9 @@ const routes: Routes = [
     path: '',
     component: Memberships,
     children: [
-      { path: 'smarttables', component: SmartTables },
-      { path: 'standard-inputs', component: StandardInputs },
-      { path: 'standard-inputs/:id', component: StandardInputs }
+      { path: 'list', component: List },
+      { path: 'add', component: AddMembership },
+      { path: 'add/:id', component: AddMembership }
     ]
   }
 ];

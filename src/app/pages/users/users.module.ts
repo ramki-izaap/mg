@@ -1,6 +1,7 @@
 import { NgModule }      from '@angular/core';
 import { CommonModule }  from '@angular/common';
 import { FormsModule as AngularFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppTranslationModule } from '../../app.translation.module';
 import { NgaModule } from '../../theme/nga.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
@@ -13,6 +14,8 @@ import { Users } from './users.component';
 import { Inputs } from './components/inputs';
 import { UsersList } from './components/usersList';
 import { Layouts } from './components/layouts';
+
+import { ButtonViewComponent } from './components/usersList/buttonView.component';
 
 import { StandardInputs } from './components/inputs/components/standardInputs';
 import { ValidationInputs } from './components/inputs/components/validationInputs';
@@ -32,6 +35,8 @@ import {UsersService} from "../../shared/services/users.service";
   imports: [
     CommonModule,
     AngularFormsModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppTranslationModule,
     NgaModule,
     Ng2SmartTableModule,
@@ -44,6 +49,7 @@ import {UsersService} from "../../shared/services/users.service";
     Inputs,
     UsersList,
     Users,
+    ButtonViewComponent,
     StandardInputs,
     ValidationInputs,
     CheckboxInputs,
@@ -56,7 +62,8 @@ import {UsersService} from "../../shared/services/users.service";
   providers: [
     MembershipsService,
     UsersService
-  ]
+  ],
+  entryComponents: [ButtonViewComponent]
 })
 export class UsersModule {
 }

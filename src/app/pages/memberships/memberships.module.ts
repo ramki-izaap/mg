@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgaModule } from '../../theme/nga.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { HttpModule } from "@angular/http";
@@ -9,16 +9,17 @@ import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { routing } from './memberships.routing';
 import { Memberships } from './memberships.component';
-import { SmartTables } from './components/smartTables/smartTables.component';
-import { SmartTablesService } from './components/smartTables/smartTables.service';
+import { List } from './components/list/list.component';
+//import { SmartTablesService } from './components/smartTables/smartTables.service';
 import {MembershipsService} from "../../shared/services/memberships.service";
 
-import { StandardInputs } from './components/standardInputs';
+import { AddMembership } from './components/addMembership';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     NgaModule,
     routing,
     Ng2SmartTableModule,
@@ -29,11 +30,10 @@ import { StandardInputs } from './components/standardInputs';
   ],
   declarations: [
     Memberships,
-    SmartTables,
-    StandardInputs
+    List,
+    AddMembership
   ],
   providers: [
-    SmartTablesService,
     MembershipsService
   ]
 })

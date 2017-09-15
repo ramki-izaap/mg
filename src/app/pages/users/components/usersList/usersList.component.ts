@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 
@@ -6,51 +6,19 @@ import {MembershipsService} from "../../../../shared/services/memberships.servic
 import {UsersService} from "../../../../shared/services/users.service";
 import { LocalDataSource } from 'ng2-smart-table';
 
+import {ButtonViewComponent} from "./buttonView.component"; 
+
 @Component({
   selector: 'users-list',
   templateUrl: './usersList.html',
   styleUrls: ['./usersList.scss']
+  
 })
-export class UsersList {
+export class UsersList implements OnInit{
 
   query: string = '';
 
-  settings = {
-    mode:'external',
-    actions:{position: 'right'},
-    add: {
-      addButtonContent: '<i class="ion-ios-plus-outline"></i>',
-      createButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="ion-edit"></i>',
-      saveButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="ion-trash-a"></i>',
-      confirmDelete: true
-    },
-    columns: {
-      name: {
-        title: 'Name',
-        type: 'string'
-      },
-      age: {
-        title: 'Age',
-        type: 'string'
-      },
-      sex: {
-        title: 'Sex',
-        type: 'string'
-      },
-      email: {
-        title: 'email',
-        type: 'string'
-      }
-    }
-  };
+  settings:any = {};
 
   source: LocalDataSource = new LocalDataSource();
 
@@ -60,11 +28,77 @@ export class UsersList {
     //   this.source.load(data);
     // });
 
-    this.uservice.list().map(res => res.json()).subscribe(res =>{
-        console.log(res);
-        this.source.load(res);
-    });
+    this.settings = {
+    actions:false,
+    // //mode:'external',
+    // actions:{
+    //   //position: 'right'
+    // },
+    // add: {
+    //   addButtonContent: '<i class="ion-ios-plus-outline"></i>',
+    //   createButtonContent: '<i class="ion-checkmark"></i>',
+    //   cancelButtonContent: '<i class="ion-close"></i>',
+    // },
+    // edit: {
+    //   editButtonContent: '<i class="ion-edit"></i>',
+    //   saveButtonContent: '<i class="ion-checkmark"></i>',
+    //   cancelButtonContent: '<i class="ion-close"></i>',
+    // },
+    // delete: {
+    //   deleteButtonContent: '<i class="ion-trash-a"></i>',
+    //   confirmDelete: true
+    // },
+    columns: {
+      name: {
+        title: 'Name',
+        type: 'string'
+      },
+      email: {
+        title: 'Email',
+        type: 'string'
+      },
+      mobile_no: {
+        title: 'Mobile No',
+        type: 'string'
+      },
+      membership_name: {
+        title: 'Membership',
+        type: 'string'
+      },
+      end_date: {
+        title: 'Expired On',
+        type: 'string'
+      },
+      id: {
+        title: 'Actions',
+        type: 'custom',
+        renderComponent: ButtonViewComponent,
+        onComponentInitFunction(instance) {
+          
+          instance.view.subscribe(row => {
+            alert('view!')
+          });
 
+          instance.edit.subscribe(row => {
+            
+          });
+
+          instance.delete.subscribe(row => {
+            alert('delete!')
+          });
+        }
+      }
+    }
+  };
+
+  }
+
+  ngOnInit() 
+  {
+      this.uservice.list().map(res => res.json()).subscribe(res =>{
+          console.log(res);
+          this.source.load(res);
+      });
   }
 
   onDeleteConfirm(event): void {

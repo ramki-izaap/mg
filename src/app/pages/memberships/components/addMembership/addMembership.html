@@ -1,0 +1,47 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+<div class="widgets">
+  
+    <div class="row">
+
+      <div class="col-md-6">
+
+        <ba-card cardTitle="Membership Details" baCardClass="with-scroll">    
+
+            <div class="form-group row" [ngClass]="{'has-error': (!name.valid && name.touched), 'has-success': (name.valid && name.touched)}">
+              <label for="input01">Name</label>
+              <input [formControl]="name" type="text" class="form-control" id="input01" placeholder="Name">
+            </div>
+
+             <div class="form-group row" [ngClass]="{'has-error': (!description.valid && description.touched), 'has-success': (description.valid && description.touched)}">
+              <label for="input01">Description</label>
+              <input [formControl]="description" type="text" class="form-control" id="input02" placeholder="Description">
+            </div>
+
+            <div class="form-group row" [ngClass]="{'has-error': (!duration.valid && duration.touched), 'has-success': (duration.valid && duration.touched)}">
+              <label for="input01">Duration</label>
+              <input [formControl]="duration" type="text" class="form-control" id="input03" placeholder="Duration">
+            </div>
+
+            <div class="form-group row" [ngClass]="{'has-error': (!amount.valid && amount.touched), 'has-success': (amount.valid && amount.touched)}">
+              <label for="input01">Amount</label>
+              <input [formControl]="amount" type="text" class="form-control" id="input04" placeholder="Amount">
+            </div>
+            
+        </ba-card>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 offset-md-2 text-center">
+          <div class="button-wrapper">
+            <button type="submit" class="btn btn-default btn-lg btn-block" >SUBMIT</button>
+          </div>
+        </div>
+      </div>
+  
+</div>
+</form>
+
+
