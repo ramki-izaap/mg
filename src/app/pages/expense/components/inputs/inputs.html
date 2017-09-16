@@ -1,0 +1,57 @@
+<div class="widgets">
+
+  <div class="row">
+
+    <div class="col-md-10">
+      <ba-card cardTitle="Expense Details" baCardClass="with-scroll">
+        <div class="form-group">
+          <label for="input01">Name</label>
+          <input type="text" class="form-control" id="input01" placeholder="Name" [formControl]="name"  >
+        </div>
+        <p class="alert alert-danger" text-wrap *ngIf="name.invalid  && (name.dirty || name.touched)">
+          Please enter expense name.
+        </p>
+
+        <div class="form-group">
+          <label for="textarea01">Description</label>
+          <textarea placeholder="Expense details briefly" class="form-control" id="textarea01" [formControl]='description'></textarea>
+        </div>
+        <p class="alert alert-danger" text-wrap *ngIf="description.invalid  && (description.dirty || description.touched)">
+          Please enter description.
+        </p>
+
+        <div class="form-group">
+          <label for="input02">Amount</label>
+          <input [formControl]="amount" type="text" class="form-control" id="input02" placeholder="Amount">
+        </div>
+        <p class="alert alert-danger" text-wrap *ngIf="amount.invalid  && (amount.dirty || amount.touched)">
+          Please enter amount.
+        </p>
+        
+        <div class="form-group">
+          <label for="input04">Paid Date</label>
+          <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" id="input04" name="dp2" [formControl]="date"  ngbDatepicker #d1="ngbDatepicker" value="date">
+              <div class="input-group-addon" (click)="d1.toggle()" >
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+              </div>
+          </div>
+        </div>
+         <p class="alert alert-danger" text-wrap *ngIf="date.invalid  && (date.dirty || date.touched)">
+          Please enter date.
+        </p>
+      </ba-card>
+    </div>
+
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 offset-md-4 text-center">
+      <div class="button-wrapper">
+        <button type="button" class="btn btn-default btn-lg btn-block" (click)="submitData()">SUBMIT</button>
+      </div>
+    </div>
+  </div>
+
+</div>

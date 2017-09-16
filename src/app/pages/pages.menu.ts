@@ -134,8 +134,36 @@ export const PAGES_MENU = [
           }
         ]
       },
-
-
+      {
+        path: 'expense',
+        data: {
+          menu: {
+            title: 'Expense',
+            icon: 'ion-android-people',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'inputs',
+            data: {
+              menu: {
+                title: 'Add',
+              }
+            }
+          },
+          {
+            path: 'expense-list',
+            data: {
+              menu: {
+                title: 'List',
+              }
+            }
+          }
+        ]
+      },
 
 
       
