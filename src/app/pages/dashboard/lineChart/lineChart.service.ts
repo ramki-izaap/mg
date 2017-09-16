@@ -13,7 +13,7 @@ export class LineChartService {
     let headers = new Headers();
     let options = new RequestOptions({ headers: headers });
     
-    return this.http.get( AppSettings.API_ENDPOINT+'dashboard/linechart', options).map((res:Response) => res.json());
+    return this.http.get( AppSettings.API_ENDPOINT+'dashboard/linechart', options);
 
     
   }
