@@ -67,7 +67,8 @@ export class ChartistJsService {
     },
     simpleBarOptions: {
       fullWidth: true,
-      height: '300px'
+      height: '300px',
+      Legend: true
     },
     multiBarData: {
       labels: ['Quarter 1', 'Quarter 2', 'Quarter 3', 'Quarter 4'],

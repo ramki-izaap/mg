@@ -59,7 +59,7 @@ export class ExpenseList implements OnInit{
       },
       paid_date: {
         title: 'Paid Date',
-        type: 'string'
+        type: 'date'
       },     
       created_date: {
         title: 'Created On',

@@ -37,7 +37,7 @@ export class Inputs {
   		this.rules = {
 				      'name': ['', Validators.compose([Validators.required])],
 				      'description': ['', Validators.compose([Validators.required])],
-				      'amount': ['', Validators.compose([Validators.required)],
+				      'amount': ['', Validators.compose([Validators.required])],
 				      'date': ['', Validators.compose([Validators.required])]				      
 				    };
 

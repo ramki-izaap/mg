@@ -47,6 +47,7 @@ export class LineChart {
 
   prepareChart( datavalues:any )
   {
+        console.log(datavalues);
         var layoutColors = this._baConfig.get().colors;
         var graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
 

@@ -6,8 +6,7 @@ import { ViewCell } from 'ng2-smart-table';
 
 @Component({
   selector: 'button-view',
-  template: `
-    
+  template:`  
       <a class="ng2-smart-action" (click)="onClick('view')"> 
         <i class="ion-eye"></i>
       </a>
@@ -18,14 +17,13 @@ import { ViewCell } from 'ng2-smart-table';
       &nbsp;&nbsp;
       <a class="ng2-smart-action" (click)="onClick('delete')"> 
         <i class="ion-trash-a"></i>
-      </a>
-  `,
+      </a>`
 })
 export class ButtonViewComponent implements ViewCell, OnInit {
   renderValue: string;
 
   @Input() value: string | number;
-  @Input() rowData: any;
+  @Input() rowData:any;
 
   @Output() view: EventEmitter<any> = new EventEmitter();
   @Output() edit: EventEmitter<any> = new EventEmitter();
