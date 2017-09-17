@@ -24,6 +24,12 @@ export class PieChart {
     this._pieChartService.getData().map(res => res.json()).subscribe(res =>{
         console.log(res);
         this.charts=res;
+
+        setTimeout(() => {
+          this._loadPieCharts();
+          this._updatePieCharts();
+          this._init = true;
+        }, 500)
     });
   }
 

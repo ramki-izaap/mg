@@ -11,47 +11,44 @@ export class LineChart {
 
   chartData:any;
   response:any;
+  isDataAvailable:boolean = false;
 
   constructor(private _lineChartService:LineChartService,private _baConfig:BaThemeConfigProvider) {
 
-      this._lineChartService.getData().subscribe(data => this.response = data);
+           
+  }
 
-      /*
+  ngOnInit() 
+  {
+
       this._lineChartService.getData().map(res => res.json()).subscribe(res =>{
         
         this.response=res;
 
         let datavalues:any = [];
+        for (var i = 0; i < this.response.length; i++) 
+        {
 
-        for (var i = 0; i < this.response.length; i++) {
+          let obj:any = { };
+            obj.date = new Date( parseInt(this.response[i].year),parseInt(this.response[i].month));
+            obj.value = parseInt(this.response[i].value);
 
-          let value:Object = {date:new Date(this.response[i].year,this.response[i].month), value:this.response[i].value};
-
-          datavalues.push(value);
+          datavalues.push(obj);
 
         }
+        
+        this.isDataAvailable = true;
+          
+        this.prepareChart( datavalues );
 
-      });  
+      });   
+  }
 
-      */
 
+  prepareChart( datavalues:any )
+  {
         var layoutColors = this._baConfig.get().colors;
         var graphColor = this._baConfig.get().colors.custom.dashboardLineChart;
-
-     
-         var datavalues= [       
-            { date: new Date(2013, 2), value: 25000},
-            { date: new Date(2013, 3), value: 21000},
-            { date: new Date(2013, 4), value: 24000},
-            { date: new Date(2013, 5), value: 0},
-            { date: new Date(2013, 6), value: 0},
-            { date: new Date(2013, 7), value: 0},
-            { date: new Date(2013, 8), value: 0},
-            { date: new Date(2013, 9), value: 5000},
-            { date: new Date(2013, 10), value: 0},
-            { date: new Date(2013, 11), value: 20000},
-            { date: new Date(2014, 0), value: 0}
-          ];
 
           this.chartData =  {
           type: 'serial',
@@ -112,8 +109,6 @@ export class LineChart {
           zoomOutText: '',
           pathToImages: layoutPaths.images.amChart
         };
-
- 
   }
 
   initChart(chart:any) {
