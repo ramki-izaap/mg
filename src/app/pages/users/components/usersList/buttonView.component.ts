@@ -46,6 +46,7 @@ export class ButtonViewComponent implements ViewCell, OnInit {
     if( atype == 'view' )
     {
       //this.view.emit(this.rowData);
+      this.router.navigate(['/pages/users/layouts', this.rowData.id], { queryParams: {}});
     }
     else if( atype == 'edit' )
     {
