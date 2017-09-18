@@ -28,6 +28,8 @@ export class UsersList implements OnInit{
     //   this.source.load(data);
     // });
 
+    var self = this;
+
     this.settings = {
     actions:false,
     // //mode:'external',
@@ -84,7 +86,12 @@ export class UsersList implements OnInit{
           });
 
           instance.delete.subscribe(row => {
-            alert('delete!')
+            
+            self.uservice.list().map(res => res.json()).subscribe(res =>{
+                console.log(res);
+                self.source.load(res);
+            });
+            
           });
         }
       }

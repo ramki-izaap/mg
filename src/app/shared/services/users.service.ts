@@ -38,15 +38,13 @@ export class UsersService {
     return this.http.get( AppSettings.API_ENDPOINT+'user/get/'+id, options )
   }
 
-  delete( id ):Observable<Response>{
+  delete( data ):Observable<Response>{   
     
-    let body = new FormData();
-    	body.append('id', id);
 
     let headers = new Headers();
     let options = new RequestOptions({ headers: headers });
     
-    return this.http.post( AppSettings.API_ENDPOINT+'user/delete', body, options )
+    return this.http.post( AppSettings.API_ENDPOINT+'user/delete', data, options )
   }
 
 

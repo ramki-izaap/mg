@@ -45,7 +45,6 @@ export class ButtonViewComponent implements ViewCell, OnInit {
   {
     if( atype == 'view' )
     {
-      //this.view.emit(this.rowData);
       this.router.navigate(['/pages/users/layouts', this.rowData.id], { queryParams: {}});
     }
     else if( atype == 'edit' )
@@ -60,8 +59,8 @@ export class ButtonViewComponent implements ViewCell, OnInit {
 
       if (window.confirm('Are you sure you want to delete?')) 
       {
-        this.uservice.delete(this.rowData.id).map(res => res.json()).subscribe(res =>{
-            this.router.navigate(['/pages/users/users-list'], { queryParams: {}});
+        this.uservice.delete({id:this.rowData.id}).map(res => res.json()).subscribe(res =>{
+            this.delete.emit(this.rowData);
         });
       } else {
         //event.confirm.reject();

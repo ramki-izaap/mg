@@ -12,6 +12,7 @@ const routes: Routes = [
     component: Users,
     children: [
       { path: 'inputs', component: Inputs },
+      { path: 'inputs/:id', component: Inputs },
       { path: 'users-list', component: UsersList },
       { path: 'layouts/:id', component: Layouts }
     ]

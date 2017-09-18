@@ -27,7 +27,7 @@ export class Inputs {
 	public email:AbstractControl;
 	public facebook:AbstractControl;
 	public sex:AbstractControl;
-	public dob:AbstractControl;
+	//public dob:AbstractControl;
 	public mobile_no:AbstractControl;
 	public resident_no:AbstractControl;
 	public address:AbstractControl;
@@ -40,14 +40,20 @@ export class Inputs {
 	public contact_resident_no:AbstractControl;
 
 	//Office Info
-	public membership_type:AbstractControl;
+	//public membership_type:AbstractControl;
 	public membership_no:AbstractControl;
-	public start_date:AbstractControl;
-	public end_date:AbstractControl;
+	//public start_date:AbstractControl;
+	//public end_date:AbstractControl;
+	public amount:AbstractControl;
 	public reason:AbstractControl;
 
 	public memberships:any = [];	
 	public dob_config:any = {}; //to set max and min date for DOB field
+
+	public dob:any;
+	public membership_type:any;
+	public start_date:any;
+	public end_date:any;
 
   	constructor(	
   			protected mservice: MembershipsService, 
@@ -62,7 +68,7 @@ export class Inputs {
 				      'sex': ['M', Validators.compose([])],
 				      'email': ['', Validators.compose([Validators.required, Validators.email])],
 				      'facebook': ['', Validators.compose([])],
-				      'dob': ['', Validators.compose([])],
+				      //'dob': [this.strToDateObj( new Date() ), Validators.compose([])],
 				      'mobile_no': ['', Validators.compose([Validators.required])],
 				      'resident_no': ['', Validators.compose([])],
 				      'address': ['', Validators.compose([])],
@@ -74,10 +80,11 @@ export class Inputs {
 				      'contact_mobile_no': ['', Validators.compose([Validators.required])],
 				      'contact_resident_no': ['', Validators.compose([])],
 
-				      'membership_type': ['', Validators.compose([])],
+				      //'membership_type': [{id:0}, Validators.compose([])],
 				      'membership_no': [this.getUniqueID(), Validators.compose([])],
-				      'start_date': ['', Validators.compose([])],
-				      'end_date': ['', Validators.compose([])],
+				      //'start_date': [this.strToDateObj( new Date() ), Validators.compose([])],
+				      //'end_date': [this.strToDateObj( new Date() ), Validators.compose([])],
+				      'amount': ['', Validators.compose([])],
 				      'reason': ['', Validators.compose([])]
 				    };
 
@@ -108,11 +115,15 @@ export class Inputs {
 	        
 	        if( this.memberships.length )	   
 	        {
-	        	this.form.controls['membership_type'].setValue(this.memberships[0]);
+	        	//this.form.controls['membership_type'].setValue(this.memberships[0]);
+	        	this.membership_type = this.memberships[0];
 
 	        	let dts = this.getDatesByInterval( parseInt(this.memberships[0].duration) );
-	        	this.form.controls['start_date'].setValue( this.strToDateObj(dts.start_date) );
-				this.form.controls['end_date'].setValue( this.strToDateObj(dts.end_date) );
+	        	//this.form.controls['start_date'].setValue( this.strToDateObj(dts.start_date) );
+				//this.form.controls['end_date'].setValue( this.strToDateObj(dts.end_date) );
+				this.start_date = this.strToDateObj(dts.start_date);
+				this.end_date = this.strToDateObj(dts.end_date);
+				this.form.controls['amount'].setValue( this.memberships[0].amount );
 	        }     
 	        
 	    });
@@ -125,6 +136,9 @@ export class Inputs {
 			        console.log(res);
 
 			        this.id = params['id'];
+			        this.dob = this.strToDateObj(res['dob']);
+			        this.start_date = this.strToDateObj(res['start_date']);
+			        this.end_date = this.strToDateObj(res['end_date'])
 
 			        let elms = Object.keys(this.rules);
 
@@ -137,7 +151,7 @@ export class Inputs {
 							case "start_date":
 							case "end_date":
 								let dt = res[ elms[i] ];
-								this.form.controls[ elms[i] ].setValue( this.strToDateObj(dt) );
+								//this.form.controls[ elms[i] ].setValue( this.strToDateObj(dt) );
 								break;
 
 							case "membership_type":
@@ -180,17 +194,15 @@ export class Inputs {
 
 	submitData()
 	{
-		console.log(this.form.value);
-
 		if( this.form.invalid ) return;
 
 		let data 			= Object.assign({}, this.form.value);
 
-		data.dob 			= this.dateObjToStr(data.dob);
-		data.start_date 	= this.dateObjToStr(data.start_date);
-		data.end_date 		= this.dateObjToStr(data.end_date);
-		data.membership_id 	= data.membership_type.id;
-		data.amount 		= '1000';
+		data.dob 			= this.dateObjToStr(this.dob);
+		data.start_date 	= this.dateObjToStr(this.start_date);
+		data.end_date 		= this.dateObjToStr(this.end_date);
+		data.membership_id 	= this.membership_type.id;
+		//data.amount 		= '1000';
 
 		if( this.id )
 		{
