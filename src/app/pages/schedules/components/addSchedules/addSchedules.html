@@ -1,0 +1,125 @@
+          
+
+
+<ng-template #rt let-r="result" let-t="term">
+  {{ r.name}}
+</ng-template>
+
+<div class="row">
+  <div class="col-md-9">
+    <ba-card cardTitle="Select User" baCardClass="without-scroll">
+      <div class="form-group row">
+        <div class="col-md-6">
+          <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="udata" [ngbTypeahead]="search" [resultTemplate]="rt"  [inputFormatter]="formatter" placeholder="Type Username Here..." />          
+        </div>
+      </div>
+    </ba-card>
+  </div>
+</div>
+
+
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+<div class="widgets">
+  
+
+    <div class="row">
+
+      <div class="col-md-9">
+
+        <ba-card cardTitle="Schedule Details" baCardClass="with-scroll">    
+          
+          
+          <div class="form-group row">
+
+            <div class="col-md-4" [ngClass]="{'has-error': (!height.valid && height.touched), 'has-success': (height.valid && height.touched)}">
+              <label for="input01">Height</label>
+              <input [formControl]="height" type="text" class="form-control" id="input01" placeholder="Height">
+            </div>
+
+            <div class="col-md-4" [ngClass]="{'has-error': (!weight.valid && weight.touched), 'has-success': (weight.valid && weight.touched)}">
+              <label for="input01">Weight</label>
+              <input [formControl]="weight" type="text" class="form-control" id="input01" placeholder="Weight">
+            </div>
+
+            <div class="col-md-4" [ngClass]="{'has-error': (!bmi.valid && bmi.touched), 'has-success': (bmi.valid && bmi.touched)}">
+              <label for="input01">BMI</label>
+              <input [formControl]="bmi" type="text" class="form-control" id="input01" placeholder="BMI">
+            </div>
+
+          </div>  
+
+
+          <div class="form-group row">
+
+            <div class="col-md-6" [ngClass]="{'has-error': (!start_date.valid && start_date.touched), 'has-success': (start_date.valid && start_date.touched)}">
+              <label for="input01">Start Date</label>
+              <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [formControl]="start_date"  ngbDatepicker #d1="ngbDatepicker" value="start_date" >
+                  <div class="input-group-addon" (click)="d1.toggle()" >
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6" [ngClass]="{'has-error': (!end_date.valid && end_date.touched), 'has-success': (end_date.valid && end_date.touched)}">
+              <label for="input01">End Date</label>
+              <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" name="dp3" [formControl]="end_date"  ngbDatepicker #d2="ngbDatepicker" value="start_date" >
+                  <div class="input-group-addon" (click)="d2.toggle()" >
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group row">
+
+            <div class="col-md-6" [ngClass]="{'has-error': (!goal.valid && goal.touched), 'has-success': (goal.valid && goal.touched)}">
+              <label for="input01">Goal</label>
+              <input [formControl]="goal" type="text" class="form-control" id="input01" placeholder="Goal">
+            </div>
+
+            <div class="col-md-6" [ngClass]="{'has-error': (!specification.valid && specification.touched), 'has-success': (specification.valid && specification.touched)}">
+              <label for="input01">Specification</label>
+              <textarea [formControl]="specification" type="text" class="form-control" id="input01" placeholder="Specification"></textarea>
+            </div>
+
+          </div>
+
+
+          <div class="form-group row">
+
+            <div class="col-md-6" [ngClass]="{'has-error': (!precaution.valid && precaution.touched), 'has-success': (precaution.valid && precaution.touched)}">
+              <label for="input01">Precaution</label>
+              <textarea [formControl]="precaution" type="text" class="form-control" id="input01" placeholder="Precaution"></textarea>
+            </div>
+
+            <div class="col-md-6" [ngClass]="{'has-error': (!advice.valid && advice.touched), 'has-success': (advice.valid && advice.touched)}">
+              <label for="input01">Advice</label>
+              <textarea [formControl]="advice" type="text" class="form-control" id="input01" placeholder="Advice"></textarea>
+            </div>
+
+          </div>
+
+                  
+            
+        </ba-card>
+
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 offset-md-3 text-center">
+        <div class="button-wrapper">
+          <button type="submit" class="btn btn-default btn-lg btn-block" >SUBMIT</button>
+        </div>
+      </div>
+    </div>
+  
+</div>
+</form>
+
+

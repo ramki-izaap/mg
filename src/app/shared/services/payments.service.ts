@@ -4,7 +4,7 @@ import {Http, Headers, Response, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 
 @Injectable()
-export class MembershipsService {
+export class PaymentsService {
 
   constructor(private http:Http) { }
 
@@ -15,18 +15,8 @@ export class MembershipsService {
     let headers = new Headers();
     let options = new RequestOptions({ headers: headers });
     
-    return this.http.get( AppSettings.API_ENDPOINT+'membership/list', options )
-  }
-
-  add(data):Observable<Response>{
-    
-    
-    
-    let headers = new Headers();
-    let options = new RequestOptions({ headers: headers });
-    
-    return this.http.post( AppSettings.API_ENDPOINT+'membership/add', data, options )
-  }
+    return this.http.get( AppSettings.API_ENDPOINT+'payment/list', options )
+  } 
 
   get( id ):Observable<Response>{
     
@@ -35,19 +25,8 @@ export class MembershipsService {
     let headers = new Headers();
     let options = new RequestOptions({ headers: headers });
     
-    return this.http.get( AppSettings.API_ENDPOINT+'membership/get/'+id, options )
-  }
-
-  delete( id ):Observable<Response>{
-    
-    let body = new FormData();
-    	body.append('id', id);
-
-    let headers = new Headers();
-    let options = new RequestOptions({ headers: headers });
-    
-    return this.http.post( AppSettings.API_ENDPOINT+'membership/delete', body, options )
-  }
+    return this.http.get( AppSettings.API_ENDPOINT+'payment/get/'+id, options )
+  } 
 
   getPaidAmount( user_id, mh_id ):Observable<Response>{
     

@@ -45,7 +45,37 @@ export const PAGES_MENU = [
         ]
       },
       {
-        path: 'memberships',
+        path: 'schedules',
+        data: {
+          menu: {
+            title: 'Schedules',
+            icon: 'ion-cash',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'list',
+            data: {
+              menu: {
+                title: 'List',
+              }
+            }
+          },
+          {
+            path: 'add',
+            data: {
+              menu: {
+                title: 'Add',
+              }
+            }
+          }
+        ]
+      },
+      {
+        path: 'payments',
         data: {
           menu: {
             title: 'Payments',
@@ -57,7 +87,7 @@ export const PAGES_MENU = [
         },
         children: [
           {
-            path: 'smarttables',
+            path: 'list',
             data: {
               menu: {
                 title: 'List',
@@ -65,7 +95,7 @@ export const PAGES_MENU = [
             }
           },
           {
-            path: 'standard-inputs',
+            path: 'add',
             data: {
               menu: {
                 title: 'Add',
