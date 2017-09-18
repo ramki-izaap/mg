@@ -25,6 +25,9 @@ export const routes: Routes = [
       { path: 'payments', loadChildren: './payments/payments.module#PaymentsModule' },
       { path: 'memberships', loadChildren: './memberships/memberships.module#MembershipsModule' },
       { path: 'expense', loadChildren: './expense/expense.module#ExpenseModule' },
+      { path: 'alerts', loadChildren: './alerts/alerts.module#AlertsModule' },
+
+
       { path: 'editors', loadChildren: './editors/editors.module#EditorsModule' },
       { path: 'components', loadChildren: './components/components.module#ComponentsModule' },
       { path: 'charts', loadChildren: './charts/charts.module#ChartsModule' },

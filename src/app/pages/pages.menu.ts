@@ -105,7 +105,7 @@ export const PAGES_MENU = [
         ]
       },
       {
-        path: 'memberships',
+        path: 'alerts',
         data: {
           menu: {
             title: 'Alerts',
@@ -117,18 +117,18 @@ export const PAGES_MENU = [
         },
         children: [
           {
-            path: 'smarttables',
+            path: 'unpaid',
             data: {
               menu: {
-                title: 'List',
+                title: 'Unpaid Members',
               }
             }
           },
           {
-            path: 'standard-inputs',
+            path: 'ending',
             data: {
               menu: {
-                title: 'Add',
+                title: 'Ending Membership',
               }
             }
           }

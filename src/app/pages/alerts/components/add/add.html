@@ -1,0 +1,66 @@
+          
+
+
+<ng-template #rt let-r="result" let-t="term">
+  {{ r.name}}
+</ng-template>
+
+<div class="row">
+  <div class="col-md-9">
+    <ba-card cardTitle="Select User" baCardClass="without-scroll">
+      <div class="form-group row">
+        <div class="col-md-6">
+          <input id="typeahead-template" type="text" class="form-control" [(ngModel)]="udata" [ngbTypeahead]="search" [resultTemplate]="rt"  [inputFormatter]="formatter" placeholder="Type Username Here..." (ngModelChange)="getMembershipDetails($event)" />          
+        </div>
+      </div>
+
+    </ba-card>
+  </div>
+</div>
+
+<div class="row" *ngIf="membership_details.name">
+  <div class="col-md-9">
+    <ba-card cardTitle="Payment Details" baCardClass="without-scroll">
+      
+      <div class="form-group row" >
+        <label for="inputEmail3" class="col-sm-2 form-control-label">Membership Type</label>
+        <div class="col-sm-4">{{membership_details.name}}</div>
+
+        <label for="inputEmail3" class="col-sm-2 form-control-label">Amount</label>
+        <div class="col-sm-4">{{membership_details.amount}}</div>
+      </div>
+
+      <div class="form-group row" >
+        <label for="inputEmail3" class="col-sm-2 form-control-label">Paid Amount</label>
+        <div class="col-sm-4">{{membership_details.paid_amount}}</div>
+
+        <label for="inputEmail3" class="col-sm-2 form-control-label">Balance Amount</label>
+        <div class="col-sm-4">{{membership_details.balance_amount}}</div>
+      </div>
+
+      <div class="form-group row">
+        <label for="input01" class="col-sm-2 form-control-label">Enter Amount</label>
+        <div class="col-sm-4">
+          <input type="text" class="form-control" id="input01" placeholder="Amount" [(ngModel)]="pay_amount"  >
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-3 offset-md-3 text-center">
+          <div class="button-wrapper">
+            <button type="button" class="btn btn-default btn-lg btn-block" (click)="payAmount()">SUBMIT</button>
+          </div>
+        </div>
+      </div>
+
+    </ba-card>
+  </div>
+</div>
+
+
+
+
+    
+
+

@@ -18,6 +18,26 @@ export class PaymentsService {
     return this.http.get( AppSettings.API_ENDPOINT+'payment/list', options )
   } 
 
+  unpaid():Observable<Response>{
+    
+    let body = new FormData();
+    
+    let headers = new Headers();
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.get( AppSettings.API_ENDPOINT+'payment/unpaid', options )
+  }
+
+  ending():Observable<Response>{
+    
+    let body = new FormData();
+    
+    let headers = new Headers();
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.get( AppSettings.API_ENDPOINT+'payment/ending', options )
+  }
+
   get( id ):Observable<Response>{
     
     let body = new FormData();
