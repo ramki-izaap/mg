@@ -6,7 +6,7 @@ import { AppTranslationModule } from '../../app.translation.module';
 import { NgaModule } from '../../theme/nga.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { routing }       from './users.routing';
 
@@ -16,6 +16,7 @@ import { UsersList } from './components/usersList';
 import { Layouts } from './components/layouts';
 
 import { ButtonViewComponent } from './components/usersList/buttonView.component';
+import { DefaultModal } from './components/layouts/default-modal/default-modal.component';
 
 import { StandardInputs } from './components/inputs/components/standardInputs';
 import { ValidationInputs } from './components/inputs/components/validationInputs';
@@ -28,8 +29,11 @@ import { HorizontalForm } from './components/layouts/components/horizontalForm';
 import { BasicForm } from './components/layouts/components/basicForm';
 import { WithoutLabelsForm } from './components/layouts/components/withoutLabelsForm';
 
+
 import {MembershipsService} from "../../shared/services/memberships.service";
 import {UsersService} from "../../shared/services/users.service";
+import {SchedulesService} from "../../shared/services/schedules.service";
+import {PaymentsService} from "../../shared/services/payments.service";
 
 @NgModule({
   imports: [
@@ -42,6 +46,7 @@ import {UsersService} from "../../shared/services/users.service";
     Ng2SmartTableModule,
     NgbRatingModule,
     NgbDatepickerModule,
+    NgbModalModule,
     routing
   ],
   declarations: [
@@ -57,13 +62,16 @@ import {UsersService} from "../../shared/services/users.service";
     BlockForm,
     HorizontalForm,
     BasicForm,
-    WithoutLabelsForm
+    WithoutLabelsForm,
+    DefaultModal
   ],
   providers: [
     MembershipsService,
-    UsersService
+    UsersService,
+    SchedulesService,
+    PaymentsService
   ],
-  entryComponents: [ButtonViewComponent]
+  entryComponents: [ButtonViewComponent, DefaultModal]
 })
 export class UsersModule {
 }

@@ -14,6 +14,7 @@ const routes: Routes = [
       { path: 'inputs', component: Inputs },
       { path: 'inputs/:id', component: Inputs },
       { path: 'users-list', component: UsersList },
+      { path: 'layouts', component: Layouts },
       { path: 'layouts/:id', component: Layouts }
     ]
   }
