@@ -4,6 +4,7 @@ import { Users } from './users.component';
 import { Inputs } from './components/inputs/inputs.component';
 import { UsersList } from './components/usersList/usersList.component';
 import { Layouts } from './components/layouts/layouts.component';
+import { ScheduleView } from './components/scheduleView/scheduleView.component';
 
 // noinspection TypeScriptValidateTypes
 const routes: Routes = [
@@ -15,7 +16,8 @@ const routes: Routes = [
       { path: 'inputs/:id', component: Inputs },
       { path: 'users-list', component: UsersList },
       { path: 'layouts', component: Layouts },
-      { path: 'layouts/:id', component: Layouts }
+      { path: 'layouts/:id', component: Layouts },
+      { path: 'schedule/:id', component: ScheduleView }
     ]
   }
 ];

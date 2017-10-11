@@ -197,7 +197,7 @@ export const PAGES_MENU = [
 
 
       
-      {
+      /*{
         path: 'editors',
         data: {
           menu: {
@@ -531,7 +531,7 @@ export const PAGES_MENU = [
             target: '_blank'
           }
         }
-      }
+      }*/
     ]
   }
 ];

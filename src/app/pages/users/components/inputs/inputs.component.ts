@@ -3,9 +3,7 @@ import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/form
 import { ActivatedRoute, Params, Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 
 
-import { StandardInputs } from './components/standardInputs';
-import { CheckboxInputs } from './components/CheckboxInputs';
-import { ValidationInputs } from './components/ValidationInputs';
+
 
 import {MembershipsService} from "../../../../shared/services/memberships.service";
 import {UsersService} from "../../../../shared/services/users.service";

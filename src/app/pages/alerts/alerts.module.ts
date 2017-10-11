@@ -10,6 +10,7 @@ import { NgbDatepickerModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootst
 
 import { routing } from './alerts.routing';
 import { Alerts } from './alerts.component';
+import { Add } from './components/add';
 import { Unpaid } from './components/unpaid';
 import { Ending } from './components/ending'; 
 
@@ -35,6 +36,7 @@ import {PaymentsService} from "../../shared/services/payments.service";
   ],
   declarations: [
     Alerts,
+    Add,
     Unpaid,
     Ending
   ],

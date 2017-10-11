@@ -14,13 +14,11 @@ import { Users } from './users.component';
 import { Inputs } from './components/inputs';
 import { UsersList } from './components/usersList';
 import { Layouts } from './components/layouts';
+import { ScheduleView } from './components/scheduleView/scheduleView.component';
 
 import { ButtonViewComponent } from './components/usersList/buttonView.component';
+import { ScheduleActionComponent } from './components/layouts/scheduleAction.component';
 import { DefaultModal } from './components/layouts/default-modal/default-modal.component';
-
-import { StandardInputs } from './components/inputs/components/standardInputs';
-import { ValidationInputs } from './components/inputs/components/validationInputs';
-import { CheckboxInputs } from './components/inputs/components/checkboxInputs';
 
 
 import { InlineForm } from './components/layouts/components/inlineForm';
@@ -55,14 +53,13 @@ import {PaymentsService} from "../../shared/services/payments.service";
     UsersList,
     Users,
     ButtonViewComponent,
-    StandardInputs,
-    ValidationInputs,
-    CheckboxInputs,
     InlineForm,
     BlockForm,
     HorizontalForm,
     BasicForm,
     WithoutLabelsForm,
+    ScheduleView,
+    ScheduleActionComponent,
     DefaultModal
   ],
   providers: [
@@ -71,7 +68,10 @@ import {PaymentsService} from "../../shared/services/payments.service";
     SchedulesService,
     PaymentsService
   ],
-  entryComponents: [ButtonViewComponent, DefaultModal]
+  entryComponents: [
+      ButtonViewComponent,
+      ScheduleActionComponent, 
+      DefaultModal]
 })
 export class UsersModule {
 }

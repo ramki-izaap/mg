@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgUploaderOptions } from 'ngx-uploader';
 import { ActivatedRoute, Params, Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
@@ -10,12 +10,14 @@ import {UsersService} from "../../../../shared/services/users.service";
 import {SchedulesService} from "../../../../shared/services/schedules.service";
 
 import { DefaultModal } from './default-modal/default-modal.component';
+import {ScheduleActionComponent} from "./scheduleAction.component"; 
 
 @Component({
   selector: 'layouts',
   templateUrl: './layouts.html',
+  styleUrls: ['./list.scss']
 })
-export class Layouts {
+export class Layouts implements OnInit{
 
   public defaultPicture = 'assets/img/theme/no-photo.png';
   public profile:any = {
@@ -33,40 +35,10 @@ export class Layouts {
 
   query: string = '';
 
-  settings = {
-    mode:'external',
-    actions:{position: 'right'},
-    add: {
-      addButtonContent: '<i class="ion-ios-plus-outline"></i>',
-      createButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
-    },
-    edit: {
-      editButtonContent: '<i class="ion-edit"></i>',
-      saveButtonContent: '<i class="ion-checkmark"></i>',
-      cancelButtonContent: '<i class="ion-close"></i>',
-    },
-    delete: {
-      deleteButtonContent: '<i class="ion-trash-a"></i>',
-      confirmDelete: true
-    },
-    columns: {
-      goal: {
-        title: 'Goal',
-        type: 'string'
-      },
-      start_date: {
-        title: 'Start Date',
-        type: 'string'
-      },
-      end_date: {
-        title: 'End Date',
-        type: 'string'
-      }
-    }
-  };
+  settings:any = {};
 
   source: LocalDataSource = new LocalDataSource();
+
 
   public udata:any;
   public payment_info:any;
@@ -76,11 +48,56 @@ export class Layouts {
                 protected uservice: UsersService,
                 protected shservice: SchedulesService,
                 private activatedRoute: ActivatedRoute,
-                private modalService: NgbModal ) 
+                private modalService: NgbModal,
+                private router: Router ) 
   {
+
+    var self = this;
+
     this.udata = {};
     this.payment_info = {};
     this.make_payment_flag = false;
+
+    this.settings = {
+                        actions:false,
+                        columns: {
+                          goal: {
+                            title: 'Goal',
+                            type: 'string'
+                          },
+                          start_date: {
+                            title: 'Start Date',
+                            type: 'string'
+                          },
+                          end_date: {
+                            title: 'End Date',
+                            type: 'string'
+                          },
+                          id: {
+                              title: 'Actions',
+                              type: 'custom',
+                              renderComponent: ScheduleActionComponent,
+                              onComponentInitFunction(instance) {
+                                
+                                instance.view.subscribe(row => {
+                                  console.log(row);
+                                  self.router.navigate(['/pages/users/schedule', row.id], { queryParams: {}});
+                                });
+
+                                instance.edit.subscribe(row => {
+                                  
+                                });
+
+                                instance.delete.subscribe(row => {
+                                  
+                                  
+                                  
+                                });
+                              }
+                            }
+                        }
+                        
+                      };
 
   }
 
@@ -123,4 +140,5 @@ export class Layouts {
     activeModal.componentInstance.obj = this;
     
   }
+
 }

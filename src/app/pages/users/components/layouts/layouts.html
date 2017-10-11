@@ -6,7 +6,7 @@
           <div class="form-group row">
 
             <label for="inputEmail3" class="col-sm-2 form-control-label"><h2>Name:</h2></label>
-            <div class="col-sm-6"><h2>{{udata.name}}</h2></div>
+            <div class="col-sm-4"><h2>{{udata.name}}</h2></div>
 
             <label for="inputEmail3" class="col-sm-2 form-control-label"><h2>Mobile No:</h2></label>
             <div class="col-sm-2"><h2>{{udata.mobile_no}}</h2></div>
@@ -15,7 +15,7 @@
           <div class="form-group row">
 
             <label for="inputEmail3" class="col-sm-2 form-control-label"><h2>Membership:</h2></label>
-            <div class="col-sm-6"><h2>{{payment_info.membership_name}}</h2></div>
+            <div class="col-sm-4"><h2>{{payment_info.membership_name}}</h2></div>
 
             <label for="inputEmail3" class="col-sm-2 form-control-label"><h2>Expired Date:</h2></label>
             <div class="col-sm-2"><h2>{{udata.end_date}}</h2></div>
@@ -100,7 +100,8 @@
   <div class="row">
     <div class="col-md-12">
       <ba-card cardTitle="Schedules" baCardClass="with-scroll" class="smart-table-container">
-        <ng2-smart-table [settings]="settings" [source]="source" (delete)="onDeleteConfirm($event)" (edit)="onEdit($event)"></ng2-smart-table>
+        <ng2-smart-table [settings]="settings" [source]="source" ></ng2-smart-table>
+        <!-- <ng2-smart-table [settings]="settings" [source]="source" (delete)="onDeleteConfirm($event)" (edit)="onEdit($event)"></ng2-smart-table> -->
       </ba-card>
     </div>
   </div>

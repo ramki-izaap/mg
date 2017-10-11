@@ -17,11 +17,6 @@ import { Layouts } from './components/layouts';
 
 import { ButtonViewComponent } from './components/expenseList/buttonView.component';
 
-import { StandardInputs } from './components/inputs/components/standardInputs';
-import { ValidationInputs } from './components/inputs/components/validationInputs';
-import { CheckboxInputs } from './components/inputs/components/checkboxInputs';
-
-
 import { InlineForm } from './components/layouts/components/inlineForm';
 import { BlockForm } from './components/layouts/components/blockForm';
 import { HorizontalForm } from './components/layouts/components/horizontalForm';
@@ -50,9 +45,6 @@ import {ExpenseService} from "../../shared/services/expense.service";
     ExpenseList,
     Expense,
     ButtonViewComponent,
-    StandardInputs,
-    ValidationInputs,
-    CheckboxInputs,
     InlineForm,
     BlockForm,
     HorizontalForm,

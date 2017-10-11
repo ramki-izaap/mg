@@ -3,9 +3,6 @@ import {FormGroup, AbstractControl, FormBuilder, Validators} from '@angular/form
 import { ActivatedRoute, Params, Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 
 
-import { StandardInputs } from './components/standardInputs';
-import { ValidationInputs } from './components/ValidationInputs';
-
 import {ExpenseService} from "../../../../shared/services/expense.service";
 
 @Component({
