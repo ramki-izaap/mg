@@ -26,6 +26,7 @@ export const routes: Routes = [
       { path: 'memberships', loadChildren: './memberships/memberships.module#MembershipsModule' },
       { path: 'expense', loadChildren: './expense/expense.module#ExpenseModule' },
       { path: 'alerts', loadChildren: './alerts/alerts.module#AlertsModule' },
+      { path: 'leads', loadChildren: './leads/leads.module#LeadsModule' },
 
 
       { path: 'editors', loadChildren: './editors/editors.module#EditorsModule' },

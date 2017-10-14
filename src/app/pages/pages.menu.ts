@@ -194,6 +194,36 @@ export const PAGES_MENU = [
           }
         ]
       },
+      {
+        path: 'leads',
+        data: {
+          menu: {
+            title: 'Leads',
+            icon: 'ion-android-people',
+            selected: false,
+            expanded: false,
+            order: 100,
+          }
+        },
+        children: [
+          {
+            path: 'inputs',
+            data: {
+              menu: {
+                title: 'Register',
+              }
+            }
+          },
+          {
+            path: 'users-list',
+            data: {
+              menu: {
+                title: 'List',
+              }
+            }
+          }
+        ]
+      }
 
 
       
