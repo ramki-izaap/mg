@@ -53,7 +53,7 @@
 
         <div class="form-group">
           <label for="input06">Occupation</label>
-          <input type="text" class="form-control" id="input06" placeholder="Resident No" [formControl]="resident_no">
+          <input type="text" class="form-control" id="input06" placeholder="Occupation" [formControl]="occupation">
         </div>
 
         <div class="form-group">
@@ -72,45 +72,37 @@
 
         <div class="form-group">
           <label for="exampleSelect1">What is your fitness goal ?</label>
-          <select class="form-control" id="exampleSelect1">
-            <option>WEIGHT LOSS</option>
-            <option>GENERAL FITNESS</option>
-            <option>TONE UP</option>
-            <option>BULKING UP</option>
+          <select class="form-control" [(ngModel)]="fitness_goal">
+            <option *ngFor="let fg of fitness_goals" [ngValue]="fg" >{{fg.name}}</option>
           </select>
         </div>
 
         <div class="form-group">
           <label for="exampleSelect1">How do you hear about Muscle Garage ?</label>
-          <select class="form-control" id="exampleSelect2">
-            <option>PAPER ADS</option>
-            <option>FLYERS</option>
-            <option>SOCIAL MEDIA</option>
-            <option>WEBSITE</option>
-            <option>FRIENDS</option>
-            <option>PASSING BY</option>
+          <select class="form-control" [(ngModel)]="heard_from">
+            <option *ngFor="let hf of heard_froms" [ngValue]="hf" >{{hf.name}}</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="input09">Did anyone reffered ?</label>
+          <label for="input03">Did anyone reffered ?</label>
           <div class="input-demo radio-demo row">
             <div class="col-md-4">
               <label class="radio-inline custom-radio nowrap">
-                <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                <input type="radio" name="reffference" id="inlineRadio4" [formControl]="reffference" value="1" (change)="handleChange($event)" >
                 <span>Yes</span>
               </label>
             </div>
             <div class="col-md-4">
               <label class="radio-inline custom-radio nowrap">
-                <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                <input type="radio" name="reffference" id="inlineRadio5" [formControl]="reffference" value="0" (change)="handleChange($event)">
                 <span>No</span>
               </label>
             </div>
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="show_referred_by=='1'">
           <label for="input09">Reffered By</label>
           <input type="text" class="form-control" id="input09" placeholder="Reffered By" [formControl]="referred_by">
         </div>
@@ -123,7 +115,7 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group">
-              <label for="input31">Membership Plan</label>
+              <label for="input31">Package Suggested</label>
               <select [(ngModel)]="membership_type" class="form-control">
                 <option *ngFor="let m of memberships" [ngValue]="m">{{m.name}}</option>
               </select>
@@ -139,7 +131,7 @@
 
         <div class="form-group">
           <label for="input37">When can we expect</label>
-          <input type="text" class="form-control" id="input37" [formControl]="reason" placeholder="Specify for offer given">
+          <input type="text" class="form-control" id="input37" [formControl]="expect_at" placeholder="When can we expect">
         </div>
       </ba-card>
 

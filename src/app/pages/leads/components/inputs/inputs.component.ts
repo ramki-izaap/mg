@@ -21,38 +21,26 @@ export class Inputs {
 
 	//Personal details
 	public name:AbstractControl;
+	public sex:AbstractControl;
 	public age:AbstractControl;
+	public mobile_no:AbstractControl;
+	public occupation:AbstractControl;
 	public email:AbstractControl;
 	public facebook:AbstractControl;
-	public sex:AbstractControl;
-	//public dob:AbstractControl;
-	public mobile_no:AbstractControl;
-	public resident_no:AbstractControl;
-	public address:AbstractControl;
+	public reffference:AbstractControl;
 	public referred_by:AbstractControl;
 	
-	//Emergency contact details
-	public contact_name:AbstractControl;
-	public contact_relationship:AbstractControl;
-	public contact_mobile_no:AbstractControl;
-	public contact_resident_no:AbstractControl;
-
-	//Office Info
-	//public membership_type:AbstractControl;
-	public membership_no:AbstractControl;
-	//public start_date:AbstractControl;
-	//public end_date:AbstractControl;
 	public amount:AbstractControl;
-	public reason:AbstractControl;
+	public expect_at:AbstractControl;
 
 	public memberships:any = [];	
-	public dob_config:any = {}; //to set max and min date for DOB field
+	public fitness_goals = [];
+	public heard_froms:any = [];
 
-	public dob:any;
-	public membership_type:any;
-	public start_date:any;
-	public end_date:any;
-
+	public membership_type:any;	
+	public fitness_goal:any;
+	public heard_from:any;
+	public show_referred_by:number = 1;
   	constructor(	
   			protected mservice: MembershipsService, 
   			protected uservice: UsersService, 
@@ -60,30 +48,39 @@ export class Inputs {
   			private router: Router,
   			public fb : FormBuilder) 
   	{
+
+  		this.fitness_goals = [
+  								{key:'WEIGHT_LOSS', name:'WEIGHT LOSS'},
+  								{key:'GENERAL_FITNESS', name:'GENERAL FITNESS'},
+  								{key:'TONE_UP', name:'TONE UP'},
+  								{key:'BULKING_UP', name:'BULKING UP'},
+  							];
+  		this.heard_froms = [
+  								{key:'PAPER_ADS', name:'PAPER ADS'},
+  								{key:'FLYERS', name:'FLYERS'},
+  								{key:'SOCIAL_MEDIA', name:'SOCIAL MEDIA'},
+  								{key:'WEBSITE', name:'WEBSITE'},
+  								{key:'FRIENDS', name:'FRIENDS'},
+  								{key:'PASSING_BY', name:'PASSING BY'}
+  							];
+
+  		this.fitness_goal 	= this.fitness_goals[0];
+  		this.heard_from 	= this.heard_froms[0];
+
   		this.rules = {
 				      'name': ['', Validators.compose([Validators.required])],
 				      'age': ['', Validators.compose([Validators.required])],
 				      'sex': ['M', Validators.compose([])],
 				      'email': ['', Validators.compose([Validators.required, Validators.email])],
 				      'facebook': ['', Validators.compose([])],
-				      //'dob': [this.strToDateObj( new Date() ), Validators.compose([])],
 				      'mobile_no': ['', Validators.compose([Validators.required])],
-				      'resident_no': ['', Validators.compose([])],
-				      'address': ['', Validators.compose([])],
+				      'occupation': ['', Validators.compose([])],
+				      'reffference': ['1', Validators.compose([])],
 				      'referred_by': ['', Validators.compose([])],
 				      
 
-				      'contact_name': ['', Validators.compose([Validators.required])],
-				      'contact_relationship': ['', Validators.compose([])],
-				      'contact_mobile_no': ['', Validators.compose([Validators.required])],
-				      'contact_resident_no': ['', Validators.compose([])],
-
-				      //'membership_type': [{id:0}, Validators.compose([])],
-				      'membership_no': [this.getUniqueID(), Validators.compose([])],
-				      //'start_date': [this.strToDateObj( new Date() ), Validators.compose([])],
-				      //'end_date': [this.strToDateObj( new Date() ), Validators.compose([])],
 				      'amount': ['', Validators.compose([])],
-				      'reason': ['', Validators.compose([])]
+				      'expect_at': ['', Validators.compose([])]
 				    };
 
 		this.form = this.fb.group( this.rules );
@@ -100,12 +97,13 @@ export class Inputs {
 		{
 			this[elms[i]] = this.form.controls[elms[i]];
 		}
+
+
 	}
 
 	ngOnInit() 
 	{		
-		this.dob_config.minDate = {year:1917, month:1, day: 1};
-		this.dob_config.maxDate = this.strToDateObj( new Date() );
+		
 
 		this.mservice.list().map(res => res.json()).subscribe(res =>{
 	        
@@ -119,8 +117,7 @@ export class Inputs {
 	        	let dts = this.getDatesByInterval( parseInt(this.memberships[0].duration) );
 	        	//this.form.controls['start_date'].setValue( this.strToDateObj(dts.start_date) );
 				//this.form.controls['end_date'].setValue( this.strToDateObj(dts.end_date) );
-				this.start_date = this.strToDateObj(dts.start_date);
-				this.end_date = this.strToDateObj(dts.end_date);
+				
 				this.form.controls['amount'].setValue( this.memberships[0].amount );
 	        }     
 	        
@@ -134,9 +131,7 @@ export class Inputs {
 			        console.log(res);
 
 			        this.id = params['id'];
-			        this.dob = this.strToDateObj(res['dob']);
-			        this.start_date = this.strToDateObj(res['start_date']);
-			        this.end_date = this.strToDateObj(res['end_date'])
+			        
 
 			        let elms = Object.keys(this.rules);
 
@@ -145,13 +140,6 @@ export class Inputs {
 						//this[elms[i]] = this.form.controls[elms[i]];
 						switch (elms[i]) 
 						{
-							case "dob":
-							case "start_date":
-							case "end_date":
-								let dt = res[ elms[i] ];
-								//this.form.controls[ elms[i] ].setValue( this.strToDateObj(dt) );
-								break;
-
 							case "membership_type":
 
 								console.log(res['membership_id'], this.memberships)
@@ -196,9 +184,6 @@ export class Inputs {
 
 		let data 			= Object.assign({}, this.form.value);
 
-		data.dob 			= this.dateObjToStr(this.dob);
-		data.start_date 	= this.dateObjToStr(this.start_date);
-		data.end_date 		= this.dateObjToStr(this.end_date);
 		data.membership_id 	= this.membership_type.id;
 		//data.amount 		= '1000';
 
@@ -266,5 +251,11 @@ export class Inputs {
 	    var ageDifMs = Date.now() - birthday.getTime();
 	    var ageDate = new Date(ageDifMs); // miliseconds from epoch
 	    return Math.abs(ageDate.getUTCFullYear() - 1970);
+	}
+
+	handleChange(e)
+	{
+		console.log(e.target.value, e);
+		this.show_referred_by = e.target.value;
 	}
 }
