@@ -27,11 +27,16 @@ export class Inputs {
 	public occupation:AbstractControl;
 	public email:AbstractControl;
 	public facebook:AbstractControl;
-	public reffference:AbstractControl;
+	public refference:AbstractControl;
 	public referred_by:AbstractControl;
 	
 	public amount:AbstractControl;
 	public expect_at:AbstractControl;
+
+	public co_ordinator:AbstractControl;
+	public co_ordinator_no:AbstractControl;
+
+	public comments:AbstractControl;
 
 	public memberships:any = [];	
 	public fitness_goals = [];
@@ -75,12 +80,17 @@ export class Inputs {
 				      'facebook': ['', Validators.compose([])],
 				      'mobile_no': ['', Validators.compose([Validators.required])],
 				      'occupation': ['', Validators.compose([])],
-				      'reffference': ['1', Validators.compose([])],
+				      'refference': ['1', Validators.compose([])],
 				      'referred_by': ['', Validators.compose([])],
 				      
 
 				      'amount': ['', Validators.compose([])],
-				      'expect_at': ['', Validators.compose([])]
+				      'expect_at': ['', Validators.compose([])],
+
+				      'co_ordinator': ['', Validators.compose([])],
+				      'co_ordinator_no': ['', Validators.compose([])],
+
+				      'comments': ['', Validators.compose([])]
 				    };
 
 		this.form = this.fb.group( this.rules );
@@ -185,6 +195,8 @@ export class Inputs {
 		let data 			= Object.assign({}, this.form.value);
 
 		data.membership_id 	= this.membership_type.id;
+		data.fitness_goal 	= this.fitness_goal.key;
+		data.heard_from 	= this.heard_from.key;
 		//data.amount 		= '1000';
 
 		if( this.id )
@@ -194,9 +206,9 @@ export class Inputs {
 		
 		console.log('data', data);		
 
-		this.uservice.add( data ).map(res => res.json()).subscribe(res =>{
-	        console.log(res);
-	        let msg = 'User added successfully!.';
+		this.uservice.addLead( data ).map(res => res.json()).subscribe(res =>{
+	        console.log(res); 
+	        let msg = 'Lead added successfully!.';
 	        if( this.id )
 	        {
 	        	msg = 'Record updated successfully!.';
@@ -204,7 +216,7 @@ export class Inputs {
 
 	        alert(msg);
 
-	        this.router.navigate(['/pages/users/users-list'], { queryParams: {}});
+	        this.router.navigate(['/pages/leads/users-list'], { queryParams: {}});
 	    });
 
 	}

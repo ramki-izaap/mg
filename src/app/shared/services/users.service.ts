@@ -47,6 +47,26 @@ export class UsersService {
     return this.http.post( AppSettings.API_ENDPOINT+'user/delete', data, options )
   }
 
+  listLeads():Observable<Response>{
+    
+    let body = new FormData();
+    
+    let headers = new Headers();
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.get( AppSettings.API_ENDPOINT+'lead/list', options )
+  }
+
+  addLead(data):Observable<Response>{
+    
+    
+    
+    let headers = new Headers();
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.post( AppSettings.API_ENDPOINT+'lead/add', data, options )
+  }
+
 
 }
 

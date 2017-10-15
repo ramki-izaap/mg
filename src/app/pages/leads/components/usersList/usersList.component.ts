@@ -67,10 +67,6 @@ export class UsersList implements OnInit{
         title: 'Membership',
         type: 'string'
       },
-      end_date: {
-        title: 'Expired On',
-        type: 'string'
-      },
       id: {
         title: 'Actions',
         type: 'custom',
@@ -102,7 +98,7 @@ export class UsersList implements OnInit{
 
   ngOnInit() 
   {
-      this.uservice.list().map(res => res.json()).subscribe(res =>{
+      this.uservice.listLeads().map(res => res.json()).subscribe(res =>{
           console.log(res);
           this.source.load(res);
       });

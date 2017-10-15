@@ -89,13 +89,13 @@
           <div class="input-demo radio-demo row">
             <div class="col-md-4">
               <label class="radio-inline custom-radio nowrap">
-                <input type="radio" name="reffference" id="inlineRadio4" [formControl]="reffference" value="1" (change)="handleChange($event)" >
+                <input type="radio" name="refference" id="inlineRadio4" [formControl]="refference" value="1" (change)="handleChange($event)" >
                 <span>Yes</span>
               </label>
             </div>
             <div class="col-md-4">
               <label class="radio-inline custom-radio nowrap">
-                <input type="radio" name="reffference" id="inlineRadio5" [formControl]="reffference" value="0" (change)="handleChange($event)">
+                <input type="radio" name="refference" id="inlineRadio5" [formControl]="refference" value="0" (change)="handleChange($event)">
                 <span>No</span>
               </label>
             </div>
@@ -138,17 +138,17 @@
       <ba-card cardTitle="To be completed by Member of Staff" baCardClass="with-scroll">
         <div class="form-group">
           <label for="input21">Co-Ordinator *</label>
-          <input type="text" class="form-control" id="input21" [formControl]="contact_name" placeholder="Contact Person Name">
+          <input type="text" class="form-control" id="input21" [formControl]="co_ordinator" placeholder="Co-Ordinator">
         </div>
-        <p class="alert alert-danger" text-wrap *ngIf="contact_name.invalid  && (contact_name.dirty || contact_name.touched)">
-          Please enter name.
+        <p class="alert alert-danger" text-wrap *ngIf="co_ordinator.invalid  && (co_ordinator.dirty || co_ordinator.touched)">
+          Please enter Co-Ordinator.
         </p>
 
         <div class="form-group">
           <label for="input23">Conatct No *</label>
-          <input type="text" class="form-control" id="input23" [formControl]="contact_mobile_no" placeholder="Mobile No">
+          <input type="text" class="form-control" id="input23" [formControl]="co_ordinator_no" placeholder="Mobile No">
         </div>
-        <p class="alert alert-danger" text-wrap *ngIf="contact_mobile_no.invalid  && (contact_mobile_no.dirty || contact_mobile_no.touched)">
+        <p class="alert alert-danger" text-wrap *ngIf="co_ordinator_no.invalid  && (co_ordinator_no.dirty || co_ordinator_no.touched)">
           Please enter mobile number.
         </p>
 
@@ -157,7 +157,7 @@
 
       <ba-card cardTitle="Comments" baCardClass="with-scroll">
         <div class="form-group">
-          <textarea placeholder="Comments" class="form-control" id="textarea01" [formControl]='address'></textarea>
+          <textarea placeholder="Comments" class="form-control" id="textarea01" [formControl]='comments'></textarea>
         </div>        
       </ba-card>
 
