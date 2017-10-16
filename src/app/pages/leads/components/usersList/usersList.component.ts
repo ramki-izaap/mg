@@ -108,7 +108,7 @@ export class UsersList implements OnInit{
     if (window.confirm('Are you sure you want to delete?')) 
     {
       this.uservice.delete(event.data.id).map(res => res.json()).subscribe(res =>{
-          this.router.navigate(['/pages/users/users-list'], { queryParams: {}});
+          this.router.navigate(['/pages/leads/users-list'], { queryParams: {}});
       });
     } else {
       //event.confirm.reject();
@@ -117,6 +117,6 @@ export class UsersList implements OnInit{
 
   onEdit(event): void
   {
-      this.router.navigate(['/pages/users/inputs', event.data.id], { queryParams: {}});
+      this.router.navigate(['/pages/leads/inputs', event.data.id], { queryParams: {}});
   }
 }

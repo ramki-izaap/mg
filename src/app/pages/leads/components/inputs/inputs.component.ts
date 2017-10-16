@@ -137,7 +137,7 @@ export class Inputs {
         	console.log(params);
         	if( typeof params['id'] != 'undefined' && params['id'] != '' )
         	{
-        		this.uservice.get(params['id']).map(res => res.json()).subscribe(res =>{
+        		this.uservice.getLead(params['id']).map(res => res.json()).subscribe(res =>{
 			        console.log(res);
 
 			        this.id = params['id'];
@@ -150,27 +150,57 @@ export class Inputs {
 						//this[elms[i]] = this.form.controls[elms[i]];
 						switch (elms[i]) 
 						{
-							case "membership_type":
-
-								console.log(res['membership_id'], this.memberships)
-								let sel_ms = {};
-								for( let j=0; j<this.memberships.length; j++ )
-								{
-									if( this.memberships[j].id == res['membership_id'] )
-									{
-										sel_ms = this.memberships[j];
-										break;
-									}
-								}
-								this.form.controls[ elms[i] ].setValue(sel_ms);
+							case "amount":
+								this.form.controls[ 'amount' ].setValue(res[ elms[i] ]);
 								break;
-
+							case 'heard_from':
+								
+								//this.form.controls[ elms[i] ].setValue(sel_hf);
+								break;
+							case 'fitness_goal':
+								
+								//this.form.controls[ elms[i] ].setValue(sel_fg);
+								break;
 							default:
 								this.form.controls[ elms[i] ].setValue(res[ elms[i] ]);
 								break;
 						}
 						
 					}
+
+					let sel_hf = {};
+					for( let j=0; j<this.heard_froms.length; j++ )
+					{
+						if( this.heard_froms[j].key == res['heard_from'] )
+						{
+							sel_hf = this.heard_froms[j];
+						}
+					}
+					console.log('heard_from', sel_hf);
+					this.heard_from = sel_hf;
+
+					let sel_fg = {};
+					for( let j=0; j<this.fitness_goals.length; j++ )
+					{
+						if( this.fitness_goals[j].key == res['fitness_goal'] )
+						{
+							sel_fg = this.fitness_goals[j];
+						}
+					}
+					this.fitness_goal = sel_fg;
+					
+					console.log(res['membership_id'], this.memberships)
+					let sel_ms = {};
+					for( let j=0; j<this.memberships.length; j++ )
+					{
+						if( this.memberships[j].id == res['package'] )
+						{
+							sel_ms = this.memberships[j];
+							break;
+						}
+					}
+					//this.form.controls[ elms[i] ].setValue(sel_ms);
+					this.membership_type = sel_ms;
 
 					this.updateValues();
 			    });

@@ -45,12 +45,12 @@ export class ButtonViewComponent implements ViewCell, OnInit {
   {
     if( atype == 'view' )
     {
-      this.router.navigate(['/pages/users/layouts', this.rowData.id], { queryParams: {}});
+      this.router.navigate(['/pages/leads/layouts', this.rowData.id], { queryParams: {}});
     }
     else if( atype == 'edit' )
     {
       //console.log('JJJJJJJJJJJJJ', this.rowData);
-      this.router.navigate(['/pages/users/inputs', this.rowData.id], { queryParams: {}});
+      this.router.navigate(['/pages/leads/inputs', this.rowData.id], { queryParams: {}});
       //this.edit.emit(this.rowData);
     }
     else if( atype == 'delete' )
@@ -59,7 +59,7 @@ export class ButtonViewComponent implements ViewCell, OnInit {
 
       if (window.confirm('Are you sure you want to delete?')) 
       {
-        this.uservice.delete({id:this.rowData.id}).map(res => res.json()).subscribe(res =>{
+        this.uservice.deleteLead({id:this.rowData.id}).map(res => res.json()).subscribe(res =>{
             this.delete.emit(this.rowData);
         });
       } else {

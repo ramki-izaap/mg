@@ -32,17 +32,10 @@ export class Layouts implements OnInit{
     // url: 'http://website.com/upload'
     url: '',
   };
-
-  query: string = '';
-
-  settings:any = {};
-
-  source: LocalDataSource = new LocalDataSource();
+  
 
 
   public udata:any;
-  public payment_info:any;
-  public make_payment_flag:boolean;
   
   constructor( protected mservice: MembershipsService, 
                 protected uservice: UsersService,
@@ -55,50 +48,6 @@ export class Layouts implements OnInit{
     var self = this;
 
     this.udata = {};
-    this.payment_info = {};
-    this.make_payment_flag = false;
-
-    this.settings = {
-                        actions:false,
-                        columns: {
-                          goal: {
-                            title: 'Goal',
-                            type: 'string'
-                          },
-                          start_date: {
-                            title: 'Start Date',
-                            type: 'string'
-                          },
-                          end_date: {
-                            title: 'End Date',
-                            type: 'string'
-                          },
-                          id: {
-                              title: 'Actions',
-                              type: 'custom',
-                              renderComponent: ScheduleActionComponent,
-                              onComponentInitFunction(instance) {
-                                
-                                instance.view.subscribe(row => {
-                                  console.log(row);
-                                  self.router.navigate(['/pages/users/schedule', row.id], { queryParams: {}});
-                                });
-
-                                instance.edit.subscribe(row => {
-                                  
-                                });
-
-                                instance.delete.subscribe(row => {
-                                  
-                                  
-                                  
-                                });
-                              }
-                            }
-                        }
-                        
-                      };
-
   }
 
   ngOnInit() 
@@ -110,35 +59,17 @@ export class Layouts implements OnInit{
               this.loadData(params['id']);
           }
       });
-
-      this.shservice.list().map(res => res.json()).subscribe(res =>{
-          console.log(res);
-          this.source.load(res);
-      });
   }
 
   loadData( id:number )
   {
-      this.uservice.get(id).map(res => res.json()).subscribe(res =>{
+      this.uservice.getLead(id).map(res => res.json()).subscribe(res =>{
         console.log(res);    
         this.udata = res;  
-        this.payment_info = res.payment_info; 
-        if( parseFloat(this.payment_info.balance_amount) > 0 )
-        {
-          this.make_payment_flag = true;
-        } 
+        
       });
   }
 
-  makePayment()
-  {
-    const activeModal = this.modalService.open(DefaultModal, {size: 'lg'});
-    
-    activeModal.componentInstance.modalHeader = 'Pay Now';
-    activeModal.componentInstance.user_id = this.udata.id;
-    activeModal.componentInstance.mh_id = this.payment_info.mh_id;
-    activeModal.componentInstance.obj = this;
-    
-  }
+  
 
 }
