@@ -8,11 +8,23 @@ import { ActivatedRoute, Params, Router, CanActivate, ActivatedRouteSnapshot } f
 import {MembershipsService} from "../../../../shared/services/memberships.service";
 import {UsersService} from "../../../../shared/services/users.service";
 
+import {AppSettings} from '../../../../shared/appSettings';
+import { NgUploaderOptions } from 'ngx-uploader';
+
 @Component({
   selector: 'inputs',
   templateUrl: './inputs.html'
 })
 export class Inputs {
+
+	public defaultPicture = 'assets/img/theme/no-photo.png';
+	public profile:any = {
+	    picture: 'assets/img/app/profile/Nasta.png'
+	  };
+	public uploaderOptions:NgUploaderOptions = {
+	    // url: 'http://website.com/upload'
+	    url: AppSettings.API_ENDPOINT+'user/upload',
+	  };
 
 	public form:FormGroup;
 	public rules:any= {};

@@ -95,6 +95,12 @@
     </div>
 
     <div class="col-md-6">
+
+      <ba-card cardTitle="Picture Uploader" baCardClass="with-scroll">
+        <ba-picture-uploader [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
+      </ba-card>
+
+      
       <ba-card cardTitle="Emergency Contact Details" baCardClass="with-scroll">
         <div class="form-group">
           <label for="input21">Contact Person Name *</label>
