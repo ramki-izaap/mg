@@ -32,8 +32,8 @@
             <label for="inputEmail3" class="col-sm-2 form-control-label">Name</label>
             <div class="col-sm-4">{{udata.name}}</div>
 
-            <label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
-            <div class="col-sm-4">{{udata.email}}</div>
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Age</label>
+            <div class="col-sm-4">{{udata.age}}</div>
 
           </div>
 
@@ -42,21 +42,45 @@
             <label for="inputEmail3" class="col-sm-2 form-control-label">Mobile No</label>
             <div class="col-sm-4">{{udata.mobile_no}}</div>
 
-            <label for="inputEmail3" class="col-sm-2 form-control-label">Facebook</label>
-            <div class="col-sm-4">{{udata.facebook}}</div>
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Occupation</label>
+            <div class="col-sm-4">{{udata.occupation}}</div>
 
           </div>
 
           <div class="form-group row">
 
-            <label for="inputEmail3" class="col-sm-2 form-control-label">Age</label>
-            <div class="col-sm-4">{{udata.age}}</div>
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Email ID</label>
+            <div class="col-sm-4">{{udata.email}}</div>
+
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Facebook ID</label>
+            <div class="col-sm-4">{{udata.facebook}}</div>
+
+          </div>
+
+           <div class="form-group row">
+
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Fitness Goal</label>
+            <div class="col-sm-4">{{udata.fitness_goal}}</div>
+
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Heard about Muscle Garage from</label>
+            <div class="col-sm-4">{{udata.heard_from}}</div>
+
+          </div>
+
+          <div class="form-group row">
+
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Did anyone reffered ?</label>
+            <div class="col-sm-4" *ngIf="udata.refference=='1'">Yes</div>
+            <div class="col-sm-4" *ngIf="udata.refference=='0'">No</div>
+
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Refferer Name</label>
+            <div class="col-sm-4">{{udata.referred_by}}</div>
 
           </div>
 
         </ba-card>
 
-        <ba-card cardTitle="Payment Details" baCardClass="with-scroll">
+        <ba-card cardTitle="Membership Details" baCardClass="with-scroll">
 
           <div class="form-group row">
 
@@ -68,7 +92,35 @@
 
           </div>
 
+          <div class="form-group row">
+
+            <label for="inputEmail3" class="col-sm-2 form-control-label">When can we expect ?</label>
+            <div class="col-sm-4">{{udata.expect_at}}</div>
+
+          </div>
+
         </ba-card>
+
+        <ba-card cardTitle="To be completed by office member or staff" baCardClass="with-scroll">
+
+          <div class="form-group row">
+
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Co-Ordinator</label>
+            <div class="col-sm-4">{{udata.co_ordinator}}</div>
+
+            <label for="inputEmail3" class="col-sm-2 form-control-label">Contact No</label>
+            <div class="col-sm-4">{{udata.co_ordinator_no}}</div>
+
+          </div>
+        </ba-card>
+
+        <ba-card cardTitle="Comments" baCardClass="with-scroll">
+
+          <div class="form-group row">
+            <div class="col-sm-6">{{udata.comments}}</div>
+          </div>
+        </ba-card>
+
       </div>      
     </div>
   </div>
