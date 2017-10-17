@@ -7,6 +7,7 @@
 }
 
 :host /deep/ {
+  .profile_img img{border-radius:50%;width:55px;}
   ng2-smart-table {
     th, td {
       border: 1px solid $border-light !important;

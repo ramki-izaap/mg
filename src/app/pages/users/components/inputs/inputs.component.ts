@@ -13,16 +13,17 @@ import { NgUploaderOptions } from 'ngx-uploader';
 
 @Component({
   selector: 'inputs',
-  templateUrl: './inputs.html'
+  templateUrl: './inputs.html',
+  styleUrls: ['./inputs.scss']
 })
 export class Inputs {
 
 	public defaultPicture = 'assets/img/theme/no-photo.png';
 	public profile:any = {
-	    picture: 'assets/img/app/profile/Nasta.png'
+	    picture: 'assets/img/theme/no-photo.png'
 	  };
+
 	public uploaderOptions:NgUploaderOptions = {
-	    // url: 'http://website.com/upload'
 	    url: AppSettings.API_ENDPOINT+'user/upload',
 	  };
 
@@ -37,6 +38,8 @@ export class Inputs {
 	public email:AbstractControl;
 	public facebook:AbstractControl;
 	public sex:AbstractControl;
+	public martial_status:AbstractControl;
+
 	//public dob:AbstractControl;
 	public mobile_no:AbstractControl;
 	public resident_no:AbstractControl;
@@ -59,12 +62,14 @@ export class Inputs {
 
 	public memberships:any = [];	
 	public dob_config:any = {}; //to set max and min date for DOB field
+	public anniversary_config:any = {}; //to set max and min date for anniversary field
 
 	public dob:any;
+	public anniversary_date:any;
 	public membership_type:any;
 	public start_date:any;
 	public end_date:any;
-
+	public profile_image:string;
   	constructor(	
   			protected mservice: MembershipsService, 
   			protected uservice: UsersService, 
@@ -76,6 +81,7 @@ export class Inputs {
 				      'name': ['', Validators.compose([Validators.required])],
 				      'age': ['', Validators.compose([Validators.required])],
 				      'sex': ['M', Validators.compose([])],
+				      'martial_status': ['S', Validators.compose([])],
 				      'email': ['', Validators.compose([Validators.required, Validators.email])],
 				      'facebook': ['', Validators.compose([])],
 				      //'dob': [this.strToDateObj( new Date() ), Validators.compose([])],
@@ -119,6 +125,9 @@ export class Inputs {
 		this.dob_config.minDate = {year:1917, month:1, day: 1};
 		this.dob_config.maxDate = this.strToDateObj( new Date() );
 
+		this.anniversary_config.minDate = {year:1950, month:1, day: 1};
+		this.anniversary_config.maxDate = this.strToDateObj( new Date() );
+
 		this.mservice.list().map(res => res.json()).subscribe(res =>{
 	        
 	        this.memberships = res;
@@ -148,7 +157,10 @@ export class Inputs {
 			        this.id = params['id'];
 			        this.dob = this.strToDateObj(res['dob']);
 			        this.start_date = this.strToDateObj(res['start_date']);
-			        this.end_date = this.strToDateObj(res['end_date'])
+			        this.end_date = this.strToDateObj(res['end_date']);
+			        this.anniversary_date = this.strToDateObj(res['anniversary_date']);
+			        this.profile.picture = AppSettings.API_ENDPOINT+'uploads/'+res['profile_image'];
+			        this.profile_image = res['profile_image'];
 
 			        let elms = Object.keys(this.rules);
 
@@ -201,6 +213,18 @@ export class Inputs {
 		this.form.controls['age'].setValue(age);
 	}
 
+	onUploadCompleted( e )
+	{
+		let resp = JSON.parse( e.response );
+		if( typeof resp.error !== 'undefined' )
+		{
+			alert('Please upload image.');
+			return true;
+		}
+
+		this.profile_image = resp.upload_data.file_name;
+	}
+
 
 	submitData()
 	{
@@ -212,6 +236,8 @@ export class Inputs {
 		data.start_date 	= this.dateObjToStr(this.start_date);
 		data.end_date 		= this.dateObjToStr(this.end_date);
 		data.membership_id 	= this.membership_type.id;
+		data.profile_image 	= this.profile_image;
+		data.anniversary_date 	= this.dateObjToStr(this.anniversary_date);
 		//data.amount 		= '1000';
 
 		if( this.id )

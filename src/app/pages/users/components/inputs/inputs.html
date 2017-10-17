@@ -1,5 +1,5 @@
 <div class="widgets">
-
+  
   <div class="row">
 
     <div class="col-md-6">
@@ -53,6 +53,33 @@
           Please enter age. It should be a number.
         </p>
 
+        <div class="form-group">
+          <label for="input03">Martial Status</label>
+          <div class="input-demo radio-demo row">
+            <div class="col-md-4">
+              <label class="radio-inline custom-radio nowrap">
+                <input type="radio" name="martial_status" id="inlineRadio6" [formControl]="martial_status" value="S" >
+                <span>Single</span>
+              </label>
+            </div>
+            <div class="col-md-4">
+              <label class="radio-inline custom-radio nowrap">
+                <input type="radio" name="martial_status" id="inlineRadio7" [formControl]="martial_status" value="M" >
+                <span>Married</span>
+              </label>
+            </div>            
+          </div>
+        </div>
+
+        <div class="form-group" *ngIf="form.value.martial_status=='M'">
+          <label for="input09">Anniversary Date</label>
+          <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp6" [minDate]="anniversary_config.minDate" [maxDate]="anniversary_config.maxDate" [(ngModel)]="anniversary_date"  ngbDatepicker #d6="ngbDatepicker" value="anniversary_date" >
+              <div class="input-group-addon" (click)="d6.toggle()" >
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+              </div>
+          </div>
+        </div>
 
         <div class="form-group">
           <label for="input05">Mobile No *</label>
@@ -96,8 +123,8 @@
 
     <div class="col-md-6">
 
-      <ba-card cardTitle="Picture Uploader" baCardClass="with-scroll">
-        <ba-picture-uploader [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions"></ba-picture-uploader>
+      <ba-card cardTitle="Profile Picture" baCardClass="with-scroll">
+        <ba-picture-uploader [picture]="profile.picture" [defaultPicture]="defaultPicture" [uploaderOptions]="uploaderOptions" (onUploadCompleted)="onUploadCompleted($event)"></ba-picture-uploader>
       </ba-card>
 
       

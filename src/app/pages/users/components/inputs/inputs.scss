@@ -1,0 +1,9 @@
+@import "../../../../theme/sass/conf/conf";
+
+
+
+:host /deep/ {
+  .profile_img img{border-radius:50%;width:45px;}
+}
+
+
