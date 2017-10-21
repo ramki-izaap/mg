@@ -45,7 +45,7 @@ export class Inputs {
 	public membership_type:any;	
 	public fitness_goal:any;
 	public heard_from:any;
-	public show_referred_by:number = 1;
+	public show_referred_by:any = 1;
   	constructor(	
   			protected mservice: MembershipsService, 
   			protected uservice: UsersService, 
