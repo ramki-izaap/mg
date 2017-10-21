@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Params, Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
 
-import {PaymentsService} from "../../../../../shared/services/payments.service";
+import {UsersService} from "../../../../../shared/services/users.service";
 
 @Component({
   selector: 'add-service-modal',
@@ -15,12 +15,11 @@ export class DefaultModal implements OnInit {
   modalHeader: string;
   modalContent: string = '';
 
-  public amount:any;
-  public user_id:any;
-  public mh_id:any;
+  public comments:any;
+  public next_followup_date:any;
   public obj:any;
 
-  constructor( protected pservice: PaymentsService, 
+  constructor( protected uservice: UsersService, 
                 private activeModal: NgbActiveModal,
                 private router: Router) 
   {
@@ -37,15 +36,15 @@ export class DefaultModal implements OnInit {
   pay()
   {
     let data:any = {
-                      amount:this.amount,
-                      user_id:this.user_id,
-                      mh_id:this.mh_id
+                      comments:this.comments,
+                      next_followup_date:this.next_followup_date,
+                      lead_id:this.obj.id
                     };
 
     
-    this.pservice.addPayment(data).map(res => res.json()).subscribe(res =>{
+    this.uservice.addFollowup(data).map(res => res.json()).subscribe(res =>{
         
-        this.obj.loadData(this.user_id);
+        //this.obj.loadData(this.user_id);
 
         this.activeModal.close();
     });

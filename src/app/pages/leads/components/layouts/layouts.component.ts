@@ -70,6 +70,17 @@ export class Layouts implements OnInit{
       });
   }
 
+  addFollowup()
+  {
+    console.log('&&&&&');
+    const activeModal = this.modalService.open(DefaultModal, {size: 'lg'});
+    
+    activeModal.componentInstance.modalHeader = 'Follow-up Details';
+    activeModal.componentInstance.user_id = this.udata.id;
+    activeModal.componentInstance.mh_id = 12;//this.payment_info.mh_id;
+    activeModal.componentInstance.obj = this;
+  }
+
   
 
 }

@@ -87,5 +87,16 @@ export class UsersService {
   }
 
 
+  addFollowup(data):Observable<Response>{
+    
+    
+    
+    let headers = new Headers();
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.post( AppSettings.API_ENDPOINT+'lead/followup', data, options )
+  }
+
+
 }
 
