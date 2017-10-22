@@ -4,6 +4,17 @@
   .smart-table-container {
     width: 100%;
   }
+
+}
+
+:host {
+  .add-followup {
+    min-height: 40px;
+  }
+  
+  .add-followup a{
+    text-decoration: underline !important;
+  }
 }
 
 :host /deep/ {

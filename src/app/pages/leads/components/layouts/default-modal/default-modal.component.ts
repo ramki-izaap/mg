@@ -16,7 +16,7 @@ export class DefaultModal implements OnInit {
   modalContent: string = '';
 
   public comments:any;
-  public next_followup_date:any;
+  public next_followup_date:any = {};
   public obj:any;
 
   constructor( protected uservice: UsersService, 
@@ -37,16 +37,31 @@ export class DefaultModal implements OnInit {
   {
     let data:any = {
                       comments:this.comments,
-                      next_followup_date:this.next_followup_date,
-                      lead_id:this.obj.id
+                      next_followup_date: this.dateObjToStr( this.next_followup_date ),
+                      lead_id:this.obj.udata.id
                     };
 
     
     this.uservice.addFollowup(data).map(res => res.json()).subscribe(res =>{
         
-        //this.obj.loadData(this.user_id);
+        this.obj.loadData(this.obj.udata.id);
 
         this.activeModal.close();
     });
+  }
+
+  dateObjToStr( obj )
+  {
+    let str = '';
+
+    if( typeof obj == 'object' && typeof obj['month'] != 'undefined' )
+    {
+      obj.month = (obj.month<10) ? ('0'+ obj.month) : obj.month;
+      obj.day = (obj.day<10) ? ('0'+ obj.day) : obj.day;
+      str = obj.year +'-'+ obj.month +'-'+ obj.day;
+    }
+    
+
+    return str;
   }
 }

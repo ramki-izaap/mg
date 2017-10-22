@@ -34,6 +34,11 @@ export class Layouts implements OnInit{
   };
   
 
+  query: string = '';
+
+  settings:any = {};
+
+  source: LocalDataSource = new LocalDataSource();
 
   public udata:any;
   
@@ -48,6 +53,25 @@ export class Layouts implements OnInit{
     var self = this;
 
     this.udata = {};
+
+    this.settings = {
+                    actions:false,
+                    columns: {
+                      created_on: {
+                        title: 'Date',
+                        type: 'string'
+                      },
+                      comments: {
+                        title: 'Comments',
+                        type: 'string'
+                      },
+                      next_followup_date: {
+                        title: 'Next Followup Date',
+                        type: 'string'
+                      }
+                    }
+                    
+                  };
   }
 
   ngOnInit() 
@@ -68,6 +92,11 @@ export class Layouts implements OnInit{
         this.udata = res;  
         
       });
+
+      this.uservice.listFollowup(id).map(res => res.json()).subscribe(res =>{
+          console.log(res);
+          this.source.load(res);
+      });
   }
 
   addFollowup()
@@ -75,7 +104,7 @@ export class Layouts implements OnInit{
     console.log('&&&&&');
     const activeModal = this.modalService.open(DefaultModal, {size: 'lg'});
     
-    activeModal.componentInstance.modalHeader = 'Follow-up Details';
+    activeModal.componentInstance.modalHeader = 'Follow-up';
     activeModal.componentInstance.user_id = this.udata.id;
     activeModal.componentInstance.mh_id = 12;//this.payment_info.mh_id;
     activeModal.componentInstance.obj = this;

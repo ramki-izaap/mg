@@ -31,7 +31,7 @@ export class Inputs {
 	public referred_by:AbstractControl;
 	
 	public amount:AbstractControl;
-	public expect_at:AbstractControl;
+	//public expect_at:AbstractControl;
 
 	public co_ordinator:AbstractControl;
 	public co_ordinator_no:AbstractControl;
@@ -46,6 +46,8 @@ export class Inputs {
 	public fitness_goal:any;
 	public heard_from:any;
 	public show_referred_by:any = 1;
+
+	public expect_at:any;
   	constructor(	
   			protected mservice: MembershipsService, 
   			protected uservice: UsersService, 
@@ -85,7 +87,7 @@ export class Inputs {
 				      
 
 				      'amount': ['', Validators.compose([])],
-				      'expect_at': ['', Validators.compose([])],
+				      //'expect_at': ['', Validators.compose([])],
 
 				      'co_ordinator': ['', Validators.compose([])],
 				      'co_ordinator_no': ['', Validators.compose([])],
@@ -153,9 +155,9 @@ export class Inputs {
 							case "amount":
 								this.form.controls[ 'amount' ].setValue(res[ elms[i] ]);
 								break;
-							case 'heard_from':
+							case 'expect_at':
 								
-								//this.form.controls[ elms[i] ].setValue(sel_hf);
+								this.expect_at = this.strToDateObj( res['expect_at'] );
 								break;
 							case 'fitness_goal':
 								
@@ -227,6 +229,7 @@ export class Inputs {
 		data.membership_id 	= this.membership_type.id;
 		data.fitness_goal 	= this.fitness_goal.key;
 		data.heard_from 	= this.heard_from.key;
+		data.expect_at 		= this.dateObjToStr(this.expect_at);
 		//data.amount 		= '1000';
 
 		if( this.id )

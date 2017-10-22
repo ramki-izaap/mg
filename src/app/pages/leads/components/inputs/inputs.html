@@ -111,30 +111,6 @@
 
     <div class="col-md-6">
 
-      <ba-card cardTitle="Package Details" baCardClass="without-scroll">
-        <div class="row">
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="input31">Package Suggested</label>
-              <select [(ngModel)]="membership_type" class="form-control">
-                <option *ngFor="let m of memberships" [ngValue]="m">{{m.name}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group">
-              <label for="input32">Offered Price</label>
-              <input type="text" class="form-control" id="input37" [formControl]="amount" placeholder="Amount" />
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="input37">When can we expect</label>
-          <input type="text" class="form-control" id="input37" [formControl]="expect_at" placeholder="When can we expect">
-        </div>
-      </ba-card>
-
       <ba-card cardTitle="To be completed by Member of Staff" baCardClass="with-scroll">
         <div class="form-group">
           <label for="input21">Co-Ordinator *</label>
@@ -155,11 +131,43 @@
         
       </ba-card>
 
-      <ba-card cardTitle="Comments" baCardClass="with-scroll">
+      <ba-card cardTitle="Package Details" baCardClass="without-scroll">
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="input31">Package Suggested</label>
+              <select [(ngModel)]="membership_type" class="form-control">
+                <option *ngFor="let m of memberships" [ngValue]="m">{{m.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label for="input32">Offered Price</label>
+              <input type="text" class="form-control" id="input37" [formControl]="amount" placeholder="Amount" />
+            </div>
+          </div>
+        </div>
+
         <div class="form-group">
+          <label for="input37">When can we expect</label>
+          <div class="input-group">
+              <input class="form-control" placeholder="yyyy-mm-dd" name="dp2" [(ngModel)]="expect_at"  ngbDatepicker #d10="ngbDatepicker" value="expect_at" >
+              <div class="input-group-addon" (click)="d10.toggle()" >
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+              </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="input37">Comments</label>
           <textarea placeholder="Comments" class="form-control" id="textarea01" [formControl]='comments'></textarea>
-        </div>        
+        </div>
       </ba-card>
+
+      
+
+      
 
       
     </div>

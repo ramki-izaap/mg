@@ -97,6 +97,16 @@ export class UsersService {
     return this.http.post( AppSettings.API_ENDPOINT+'lead/followup', data, options )
   }
 
+  listFollowup( lid:any ):Observable<Response>{
+    
+    let body = new FormData();
+    
+    let headers = new Headers();
+    let options = new RequestOptions({ headers: headers });
+    
+    return this.http.get( AppSettings.API_ENDPOINT+'lead/listFollowup/'+lid, options )
+  }
+
 
 }
 
