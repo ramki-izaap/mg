@@ -117,6 +117,14 @@ export const PAGES_MENU = [
         },
         children: [
           {
+            path: 'enquiry',
+            data: {
+              menu: {
+                title: 'Enquiry Followup',
+              }
+            }
+          },
+          {
             path: 'unpaid',
             data: {
               menu: {

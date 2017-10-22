@@ -12,6 +12,7 @@ import { routing } from './alerts.routing';
 import { Alerts } from './alerts.component';
 import { Add } from './components/add';
 import { Unpaid } from './components/unpaid';
+import { Enquiry } from './components/enquiry';
 import { Ending } from './components/ending'; 
 
 
@@ -38,6 +39,7 @@ import {PaymentsService} from "../../shared/services/payments.service";
     Alerts,
     Add,
     Unpaid,
+    Enquiry,
     Ending
   ],
   providers: [
