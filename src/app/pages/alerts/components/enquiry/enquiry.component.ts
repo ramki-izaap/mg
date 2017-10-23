@@ -50,6 +50,10 @@ export class Enquiry {
       membership_name: {
         title: 'Membership',
         type: 'string'
+      },
+      next_followup_date: {
+        title: 'Next Followup Date',
+        type: 'string'
       }
     }
   };
